@@ -77,6 +77,7 @@ WSGI_APPLICATION = 'portofolio.wsgi.application'
 
 
 # Database configuration
+# Testing
 if PRODUCTION:
     DATABASES = {
         'default': {
