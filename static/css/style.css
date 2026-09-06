@@ -209,32 +209,46 @@ h1, .brand {
 }
 
 .container h2 {
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
 }
 
 .experience-list {
     display: grid;
-    grid-template-columns: 1fr 250px;
+    grid-template-columns: 1fr 300px;
     column-gap: 2rem;
-    border: 2px solid black;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     border-radius: var(--radius);
     padding: 1.5rem;
     margin-bottom: 1rem; 
 }
 
 .experience-list h3 {
-    grid-column: 1 / -1;
+    grid-column: 1;
+}
+
+.experience-list h4 {
+    grid-column: 2;
+    text-align: right;
+    color: var(--ink);
+    padding-bottom: 1rem;
+    padding-right: 1rem;
 }
 
 .experience-description {
     grid-column: 1;
     grid-row: 2;
-
-
     text-align: justify;
     color: var(--text-muted);
-    max-width: 540px;
+    max-width: 520px;
     padding-top: 1rem;
+}
+
+/* Experience Photo */
+
+.experience-photos-border {
+    position: relative;
+    border-radius: var(--radius);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);;
 }
 
 .experience-photo {
@@ -242,8 +256,81 @@ h1, .brand {
     grid-row: 2;
 }
 
-.experience-photo img {
-    width: 250px;
-    height: 20px;
+.photo-list {
+    position: relative;
+    width: 18rem;
+    height: 10rem;
+}
+
+.photo-list img {
+    position: absolute;
+    width: 18rem;
+    height: 10rem;
     object-fit: cover;
+    border-radius: 8px;
+    opacity: 0;
+    animation: slideshow 12s infinite;
+}
+
+.photo-caption {
+    position: relative;
+    width: 18rem;
+    height: 2rem;
+    margin-top: 0.2rem;
+    text-align: center;
+}
+
+.photo-caption p {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    animation: slideshow 12s infinite;
+}
+
+/* Animation */
+
+.experience-photo .photo-1 {
+    animation-delay: 0s;
+}
+
+.experience-photo .photo-2 {
+    animation-delay: 4s;
+}
+
+.experience-photo .photo-3 {
+    animation-delay: 8s;
+}
+
+.experience-photo .caption-1 {
+    animation-delay: 0s;
+}
+
+.experience-photo .caption-2 {
+    animation-delay: 4s;
+}
+
+.experience-photo .caption-3 {
+    animation-delay: 8s;
+}
+
+@keyframes slideshow {
+    0% {
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    30% {
+        opacity: 1;
+    }
+
+    40% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
