@@ -5,6 +5,18 @@ NPM : 2506539523
 
 Class : PBP F
 
+== UPDATED ==
+> Tugas 1 (Updated)
+- New Navigation (Experience)
+    - New Hover effect on each option
+- New Section (Experience)
+    - Contains three personal experience sections
+    - Experience information: Title, Description, Year, Photo, and Documentation Description
+    - New Animation (Style): Image changes every 4 seconds
+    - New Hover effect on each personal experience
+- Responsive CSS Style
+
+
 == PERTANYAAN REFLEKTIF - TUGAS 1 ==
 1. Pada Tutorial dan Tugas 1, Anda diberi kebebasan untuk menentukan tampilan dari website portofolio Anda. Saat Anda merancang struktur HTML yang digunakan, apakah Anda menggunakan elemen semantik HTML5 seperti <section>, <article>, atau <aside>? Jika iya, bagaimana elemen tersebut membantu Anda dalam membuat static web? Jika tidak, mengapa tanpa elemen tersebut sudah memenuhi kebutuhan desain Anda?
 2. Ketika Anda mengatur CSS Anda agar tetap responsive, tantangan tata letak apa yang Anda temukan? Bagaimana Anda mengevaluasi elemen mana yang harus diubah posisinya atau diprioritaskan ukurannya saat berpindah dari tampilan desktop ke mobile?
