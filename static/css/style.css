@@ -64,6 +64,10 @@ h1, .brand {
     font-size: 0.95rem;
 }
 
+.site-header nav a:hover {
+    color: var(--accent)
+}
+
 /* Section Hero dengan CSS Grid */
 
 .hero {
@@ -175,33 +179,6 @@ h1, .brand {
     border: 3px solid var(--ink);
 }
 
-/* Footer & Responsive */
-
-.site-footer {
-    padding: 1.5rem;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    border-top: 1px solid var(--line);
-}
-
-@media (max-width: 600px) {
-    .hero-grid {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "identity"
-            "photo"
-            "details";
-    }
-
-    .hero-photo {
-        max-width: 220px;
-    }
-
-    .social-links {
-        justify-content: flex-start;
-    }
-}
-
 /* Tugas 1 */ 
 
 .h2 {
@@ -220,6 +197,10 @@ h1, .brand {
     border-radius: var(--radius);
     padding: 1.5rem;
     margin-bottom: 1rem; 
+}
+
+.experience-list:hover {
+    background-color:rgb(255, 238, 206);
 }
 
 .experience-list h3 {
@@ -317,7 +298,7 @@ h1, .brand {
     0% {
         opacity: 0;
     }
-
+    
     10% {
         opacity: 1;
     }
@@ -332,5 +313,61 @@ h1, .brand {
 
     100% {
         opacity: 0;
+    }
+}
+
+/* Footer & Responsive */
+
+.site-footer {
+    padding: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--line);
+}
+
+@media (max-width: 600px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "identity"
+            "photo"
+            "details";
+    }
+
+    .hero-photo {
+        max-width: 220px;
+    }
+
+    .social-links {
+        justify-content: flex-start;
+    }
+
+    /* Experience */
+    
+    .experience-list {
+        grid-template-columns: 1fr;
+        row-gap: 1rem;
+    }
+
+    .experience-list h3 {
+        grid-column: 1;
+    }
+    .experience-list h4 {
+        grid-column: 1;
+        grid-row: 2;
+        text-align: left;
+        padding-bottom: 0;
+    }
+
+    .experience-description {
+        grid-column: 1;
+        grid-row: 3;
+        padding-top: 0;
+    }
+
+    .experience-photo {
+        grid-column: 1;
+        grid-row: 4;
+        justify-self: center;
     }
 }
