@@ -181,12 +181,19 @@ h1, .brand {
 
 /* Tugas 1 */ 
 
-.h2 {
+.container h2 {
     font-family: "Space Grotesk", -apple-system, sans-serif;
+    display: inline-block;
+    border-bottom: 3px solid var(--line);
+    margin-bottom: 1rem;
 }
 
-.container h2 {
-    margin-bottom: 1rem;
+.container h3 {
+    font-family: "Space Grotesk", -apple-system, sans-serif
+}
+
+.container h4 {
+    font-family: "Space Grotesk", -apple-system, sans-serif
 }
 
 .experience-list {
