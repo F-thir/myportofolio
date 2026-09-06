@@ -237,7 +237,7 @@ h1, .brand {
 .experience-photos-border {
     position: relative;
     border-radius: var(--radius);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .experience-photo {
