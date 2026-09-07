@@ -14,7 +14,7 @@ Class : PBP F
     - Experience information: Title, Description, Year, Photo, and Documentation Description
     - New Animation (Style): Image changes every 4 seconds
     - New Hover effect on each personal experience
-- Responsive CSS Style
+- Better Responsive CSS Style
 
 
 == PERTANYAAN REFLEKTIF - TUGAS 1 ==

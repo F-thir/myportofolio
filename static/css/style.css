@@ -333,23 +333,7 @@ h1, .brand {
     border-top: 1px solid var(--line);
 }
 
-@media (max-width: 600px) {
-    .hero-grid {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "identity"
-            "photo"
-            "details";
-    }
-
-    .hero-photo {
-        max-width: 220px;
-    }
-
-    .social-links {
-        justify-content: flex-start;
-    }
-
+@media (max-width: 780px) {
     /* Experience */
     
     .experience-list {
@@ -371,11 +355,30 @@ h1, .brand {
         grid-column: 1;
         grid-row: 3;
         padding-top: 0;
+        max-width: none;
     }
 
     .experience-photo {
         grid-column: 1;
         grid-row: 4;
         justify-self: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "identity"
+            "photo"
+            "details";
+    }
+
+    .hero-photo {
+        max-width: 220px;
+    }
+
+    .social-links {
+        justify-content: flex-start;
     }
 }
