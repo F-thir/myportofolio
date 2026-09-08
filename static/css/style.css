@@ -197,7 +197,7 @@ h1, .brand {
     font-family: "Space Grotesk", -apple-system, sans-serif;
 }
 
-.experience-list {
+.experience-tugas1-list {
     display: grid;
     grid-template-columns: 1fr 300px;
     column-gap: 2rem;
@@ -207,15 +207,15 @@ h1, .brand {
     margin-bottom: 1rem; 
 }
 
-.experience-list:hover {
+.experience-tugas1-list:hover {
     background-color:rgb(255, 238, 206);
 }
 
-.experience-list h3 {
+.experience-tugas1-list h3 {
     grid-column: 1;
 }
 
-.experience-list h4 {
+.experience-tugas1-list h4 {
     grid-column: 2;
     text-align: right;
     color: var(--ink);
@@ -223,7 +223,7 @@ h1, .brand {
     padding-right: 1rem;
 }
 
-.experience-description {
+.experience-tugas1-description {
     grid-column: 1;
     grid-row: 2;
     font-size: 1.1rem;
@@ -234,13 +234,13 @@ h1, .brand {
 
 /* Experience Photo */
 
-.experience-photos-border {
+.experience-tugas1-photos-border {
     position: relative;
     border-radius: var(--radius);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
-.experience-photo {
+.experience-tugas1-photo {
     grid-column: 2;
     grid-row: 2;
 }
@@ -278,27 +278,27 @@ h1, .brand {
 
 /* Animation */
 
-.experience-photo .photo-1 {
+.experience-tugas1-photo .photo-1 {
     animation-delay: 0s;
 }
 
-.experience-photo .photo-2 {
+.experience-tugas1-photo .photo-2 {
     animation-delay: 4s;
 }
 
-.experience-photo .photo-3 {
+.experience-tugas1-photo .photo-3 {
     animation-delay: 8s;
 }
 
-.experience-photo .caption-1 {
+.experience-tugas1-photo .caption-1 {
     animation-delay: 0s;
 }
 
-.experience-photo .caption-2 {
+.experience-tugas1-photo .caption-2 {
     animation-delay: 4s;
 }
 
-.experience-photo .caption-3 {
+.experience-tugas1-photo .caption-3 {
     animation-delay: 8s;
 }
 
@@ -324,6 +324,63 @@ h1, .brand {
     }
 }
 
+/* Tutorial 2 */
+
+.experience-section {
+    padding: 4rem 0;
+    border-top: 1px solid var(--line);
+}
+
+.section-kicker {
+    color: var(--accent-dark);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.experience-section h1 {
+    margin: 0.4rem 0 1.5rem;
+    font-size: 2rem;
+}
+
+.experience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+.experience-card {
+    padding: 1.25rem;
+    background-color: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+}
+
+.experience-category {
+    color: var(--accent-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.experience-card h2 {
+    margin: 0.5rem 0;
+    font-size: 1.25rem;
+}
+
+.experience-description,
+.empty-state {
+    color: var(--text-muted);
+}
+
+.experience-status {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+
 /* Footer & Responsive */
 
 .site-footer {
@@ -336,29 +393,29 @@ h1, .brand {
 @media (max-width: 780px) {
     /* Experience */
     
-    .experience-list {
+    .experience-tugas1-list {
         grid-template-columns: 1fr;
         row-gap: 1rem;
     }
 
-    .experience-list h3 {
+    .experience-tugas1-list h3 {
         grid-column: 1;
     }
-    .experience-list h4 {
+    .experience-tugas1-list h4 {
         grid-column: 1;
         grid-row: 2;
         text-align: left;
         padding-bottom: 0;
     }
 
-    .experience-description {
+    .experience-tugas1-description {
         grid-column: 1;
         grid-row: 3;
         padding-top: 0;
         max-width: none;
     }
 
-    .experience-photo {
+    .experience-tugas1-photo {
         grid-column: 1;
         grid-row: 4;
         justify-self: center;

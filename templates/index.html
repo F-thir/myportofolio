@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fathir Azka Dillafah - Portfolio</title>
+    <title>{{ name }} - Portofolio</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -12,11 +12,12 @@
 <body>
     <header class="site-header">
         <div class="container">
-            <a href="#profile" class="brand">Fathir Azka Dillafah</a>
+            <a href="{% url 'main:show_main' %}" class="brand">{{ name }}</a>
             <nav>
-                <a href="#profile">Profile</a>
-                <a href="#experience">Experience</a>
+                <a href="{% url 'main:show_main' %}">Profile</a>
+                <a href="{% url 'main:show_experience' %}">Experience</a>
             </nav>
+
         </div>
     </header>
 
@@ -32,15 +33,15 @@
                     <img class="avatar" src="/static/img/fathir.png" alt="Photo of Fathir Azka Dillafah">
                 </div>
                 <div class="hero-details">
-                    <p class="bio">Information System Student at Universitas Indonesia. Interested in anything that relates to puzzle.</p>
+                    <p class="bio">{{ bio }}</p>
                     <dl class="meta-list">
                         <div class="meta-row">
                             <dt>NPM</dt>
-                            <dd>2506539523</dd>
+                            <dd>{{ npm }}</dd>
                         </div>
                         <div class="meta-row">
                             <dt>Program</dt>
-                            <dd>S1 Sistem Informasi</dd>
+                            <dd>{{ study_program }}</dd>
                         </div>
                     </dl>
                     <div class="social-links">
@@ -57,20 +58,20 @@
                 <div>
                     <h2>My Experiences</h2>
                 </div>
-                <div class="experience-detail">
-                    <div class="experience-list">
+                <div class="experience-tugas1-detail">
+                    <div class="experience-tugas1-list">
                         <h3>Staff – Pengabdian Masyarakat BEM Fasilkom UI</h3>
                         <h4>[2026–Present]</h4>
-                        <p class="experience-description">
+                        <p class="experience-tugas1-description">
                             Person in Charge (PIC) of Dorakula (Donor Darah Abis Kuliah), a blood donation program held twice. 
                             Managed various aspects of event preparation and coordination, including documentation, media requests, and financial administration such as preparing budget proposals (RAB). 
                             Additionally, served as a mentor for Interkom, an educational event involving members of the Fasilkom UI community.
                         </p>
-                        <div class="experience-photo">
+                        <div class="experience-tugas1-photo">
                             <div class="photo-list">
-                                <img class="experience-photos-border photo-1" src="/static/img/Pengmas-1.jpg" alt="Staff BEM Pengabdian Masyarakat">
-                                <img class="experience-photos-border photo-2" src="/static/img/Pengmas-2.jpg" alt="Staff BEM Pengabdian Masyarakat">
-                                <img class="experience-photos-border photo-3" src="/static/img/Pengmas-3.jpg" alt="Staff BEM Pengabdian Masyarakat">
+                                <img class="experience-tugas1-photos-border photo-1" src="/static/img/Pengmas-1.jpg" alt="Staff BEM Pengabdian Masyarakat">
+                                <img class="experience-tugas1-photos-border photo-2" src="/static/img/Pengmas-2.jpg" alt="Staff BEM Pengabdian Masyarakat">
+                                <img class="experience-tugas1-photos-border photo-3" src="/static/img/Pengmas-3.jpg" alt="Staff BEM Pengabdian Masyarakat">
                             </div>
                             <div class="photo-caption">
                                 <p class="caption-1">Documentation - Interkom</p>
@@ -79,20 +80,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="experience-list">
+                    <div class="experience-tugas1-list">
                         <h3>Volunteer – Open House Faculty of Computer Science</h3>
                         <h4>[2025]</h4>
-                        <p class="experience-description">
+                        <p class="experience-tugas1-description">
                             Assisted in welcoming prospective students and guiding them through faculty facilities and event activities
                             while providing clear information about academic programs, student life, and organizational opportunities at Fasilkom UI.
                             This experience strengthened communication, teamwork, and public engagement skills 
                             while helping create an informative and welcoming experience for prospective students.
                         </p>
-                        <div class="experience-photo">
+                        <div class="experience-tugas1-photo">
                             <div class="photo-list">
-                                <img class="experience-photos-border photo-1" src="/static/img/Mentoring OH-1.jpg" alt="Photo of Volunteer Open House">
-                                <img class="experience-photos-border photo-2" src="/static/img/Mentoring OH-2.jpg" alt="Photo of Volunteer Open House">
-                                <img class="experience-photos-border photo-3" src="/static/img/Mentoring OH-3.jpg" alt="Photo of Volunteer Open House">
+                                <img class="experience-tugas1-photos-border photo-1" src="/static/img/Mentoring OH-1.jpg" alt="Photo of Volunteer Open House">
+                                <img class="experience-tugas1-photos-border photo-2" src="/static/img/Mentoring OH-2.jpg" alt="Photo of Volunteer Open House">
+                                <img class="experience-tugas1-photos-border photo-3" src="/static/img/Mentoring OH-3.jpg" alt="Photo of Volunteer Open House">
                             </div>
                             <div class="photo-caption">
                                 <p class="caption-1">OH Mentoring - Stulo</p>
@@ -101,20 +102,20 @@
                             </div>
                         </div>
                     </div>
-                    <div class="experience-list">
+                    <div class="experience-tugas1-list">
                         <h3>Coding Galaxy – Educational Board Game</h3>
                         <h4>[2025]</h4>
-                        <p class="experience-description">
+                        <p class="experience-tugas1-description">
                             Designed and developed a board game that combines programming logic with space exploration, 
                             introducing coding fundamentals such as loops, sequences, and conditional actions through hands-on gameplay. 
                             Led the entire development process, from conceptual design to prototype creation. 
                             The game was designed to encourage logical thinking, collaboration, and creative problem-solving among players.
                         </p>
-                        <div class="experience-photo">
+                        <div class="experience-tugas1-photo">
                             <div class="photo-list">
-                                <img class="experience-photos-border photo-1" src="/static/img/Board Game-1.jpg" alt="Photo of Educational Board Game">
-                                <img class="experience-photos-border photo-2" src="/static/img/Board Game-2.jpg" alt="Photo of Educational Board Game">
-                                <img class="experience-photos-border photo-3" src="/static/img/Board Game-3.jpg" alt="Photo of Educational Board Game">
+                                <img class="experience-tugas1-photos-border photo-1" src="/static/img/Board Game-1.jpg" alt="Photo of Educational Board Game">
+                                <img class="experience-tugas1-photos-border photo-2" src="/static/img/Board Game-2.jpg" alt="Photo of Educational Board Game">
+                                <img class="experience-tugas1-photos-border photo-3" src="/static/img/Board Game-3.jpg" alt="Photo of Educational Board Game">
                             </div>
                             <div class="photo-caption">
                                 <p class="caption-1">Board Game - Prototype</p>
@@ -130,7 +131,7 @@
 
     <footer class="site-footer">
         <div class="container">
-            <p>&copy; 2026 Fathir Azka Dillafah. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+            <p>&copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
         </div>
     </footer>
 </body>

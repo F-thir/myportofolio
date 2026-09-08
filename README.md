@@ -16,6 +16,8 @@ Class : PBP F
     - New Hover effect on each personal experience
 - Better Responsive CSS Style
 
+> Tutorial 2 
+- Finished Tutorial 2
 
 == PERTANYAAN REFLEKTIF - TUGAS 1 ==
 1. Pada Tutorial dan Tugas 1, Anda diberi kebebasan untuk menentukan tampilan dari website portofolio Anda. Saat Anda merancang struktur HTML yang digunakan, apakah Anda menggunakan elemen semantik HTML5 seperti <section>, <article>, atau <aside>? Jika iya, bagaimana elemen tersebut membantu Anda dalam membuat static web? Jika tidak, mengapa tanpa elemen tersebut sudah memenuhi kebutuhan desain Anda?
