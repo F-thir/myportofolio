@@ -344,6 +344,12 @@ h1, .brand {
     font-size: 2rem;
 }
 
+.experience-section .container h2 {
+    font-family: "Space Grotesk", -apple-system, sans-serif;
+    font-size: 1.4rem;
+    padding-left: 0.2rem;
+}
+
 .experience-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -451,7 +457,7 @@ h1, .brand {
 
 .skill-section .container h2 {
     font-family: "Space Grotesk", -apple-system, sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     padding-left: 0.2rem;
     margin-bottom: 0.05rem;
 }
@@ -484,6 +490,7 @@ h1, .brand {
     font-size: 1.1rem;
     margin-top: 1rem;
     padding-top: 1rem;
+    text-align: justify;
     border-top: 1px solid var(--line);
     color: var(--text-muted);
 }
