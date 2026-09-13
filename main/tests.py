@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from main.models import Experience
+from main.models import Experience, Skill
 
 
 class MainTest(TestCase):
@@ -13,6 +13,14 @@ class MainTest(TestCase):
             category="part-time",
         )
 
+        self.skill = Skill.objects.create(
+            title="Python",
+            description="Bahasa pemrograman yang saya gunakan untuk mempelajari konsep dasar pemrograman dan Object-Oriented Programming.",
+            category="programming",
+            image="https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+            details="Di sini, saya mempelajari dasar-dasar pemrograman Python, mulai dari konsep dasar hingga Object-Oriented Programming (OOP), seperti class, object, inheritance, dan berbagai konsep lainnya. Python mulai saya pelajari sejak semester 1 melalui DDP-0 dan DDP-1, ketika saya pertama kali menjadi mahasiswa Fasilkom UI pada tahun 2025."
+        )
+
     def test_main_url_is_accessible(self):
         response = self.client.get(reverse("main:show_main"))
 
@@ -20,6 +28,8 @@ class MainTest(TestCase):
         self.assertTemplateUsed(response, "index.html")
         self.assertNotContains(response, self.experience.title)
         self.assertContains(response, f'href="{reverse("main:show_experience")}"')
+        self.assertNotContains(response, self.skill.title)
+        self.assertContains(response, f'href="{reverse("main:show_skill")}"')
 
     def test_nonexistent_page_returns_404(self):
         response = self.client.get("/halaman-yang-tidak-ada/")
@@ -56,3 +66,26 @@ class MainTest(TestCase):
         self.assertFalse(self.experience.is_ongoing)
         self.assertContains(response, "Selesai")
         self.assertNotContains(response, "Sedang berlangsung")
+
+    def test_skill_model(self):
+        self.assertEqual(str(self.skill), "Python")
+        self.assertEqual(self.skill.category, "programming")
+        self.assertEqual(self.skill.description, "Bahasa pemrograman yang saya gunakan untuk mempelajari konsep dasar pemrograman dan Object-Oriented Programming.")
+        self.assertEqual(self.skill.image, "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg")
+        self.assertEqual(self.skill.details, "Di sini, saya mempelajari dasar-dasar pemrograman Python, mulai dari konsep dasar hingga Object-Oriented Programming (OOP), seperti class, object, inheritance, dan berbagai konsep lainnya. Python mulai saya pelajari sejak semester 1 melalui DDP-0 dan DDP-1, ketika saya pertama kali menjadi mahasiswa Fasilkom UI pada tahun 2025.")
+
+    def test_skill_page(self):
+        response = self.client.get(reverse("main:show_skill"))
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, "skill.html")
+        self.assertContains(response, self.skill.title)
+        self.assertContains(response, self.skill.description)
+        self.assertContains(response, "Programming")
+        self.assertContains(response, "Bahasa pemrograman yang saya gunakan untuk mempelajari konsep dasar pemrograman dan Object-Oriented Programming.")
+        self.assertContains(response, f'href="{reverse("main:show_main")}"')
+
+    def test_empty_skill_page(self):
+        Skill.objects.all().delete()
+        response = self.client.get(reverse("main:show_skill"))
+        self.assertContains(response, "Belum ada skill yang ditambahkan.")
