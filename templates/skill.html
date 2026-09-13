@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill - {{ name }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="{% url 'main:show_main' %}" class="brand">{{ name }}</a>
+            <nav>
+                <a href="{% url 'main:show_main' %}">Profile</a>
+                <a href="{% url 'main:show_experience' %}">Experience</a>
+                <a href="{% url 'main:show_skill' %}">Skill</a>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+        <section class="skill-section" id="skill">
+            <div class="container">
+                <p class="section-kicker">Skill saya sejauh ini</p>
+                <h1>Skills</h1>
+
+                <div class="skill-grid">
+                    {% for skill in skill_list %}
+                        <article class="skill-card">
+                            <div class="skill-header">
+                                {% if skill.image %} 
+                                <img class ="skill-image" src="{{ skill.image }}" alt="{{ skill.title }}">
+                                {% endif %}
+                                <div class="skill-top"> 
+                                    <h2>
+                                        {{ skill.title }}
+                                    </h2>
+                                    <span class="skill-category">
+                                        {{ skill.get_category_display }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="skill-info"> 
+                                <p class="skill-description">
+                                    {{ skill.description }}
+                                </p>
+                                <details class="skill-toggle">
+                                    <summary class="skill-button"> 
+                                        <span class="skill-full-description"> Check full description </span>
+                                        <span class="skill-less-description"> Check less description </span>
+                                    </summary>
+                                    <div class="skill-details">
+                                        {{ skill.details }}
+                                    </div>
+                                </details>
+                            </div>
+                        </article>
+                    {% empty %}
+                        <p class="empty-state">
+                            Belum ada skill yang ditambahkan.
+                        </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2026 {{ name }}. Fakultas Ilmu Komputer, Universitas Indonesia.</p>
+        </div>
+    </footer>
+</body>
+</html>

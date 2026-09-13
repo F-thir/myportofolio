@@ -181,7 +181,7 @@ h1, .brand {
 
 /* Tugas 1 */ 
 
-.container h2 {
+.experience-tugas1 .container h2 {
     font-family: "Space Grotesk", -apple-system, sans-serif;
     display: inline-block;
     border-bottom: 3px solid var(--line);
@@ -352,9 +352,17 @@ h1, .brand {
 
 .experience-card {
     padding: 1.25rem;
-    background-color: #fff;
-    border: 1px solid var(--line);
     border-radius: var(--radius);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.experience-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+    0 0 1px 1px var(--accent),
+    0 0 1px 1px var(--accent-dark),
+    0 0 1px 1px rgb(6, 6, 6);
 }
 
 .experience-category {
@@ -380,6 +388,148 @@ h1, .brand {
     font-weight: 600;
 }
 
+/* Tugas 2 */
+
+.skill-section {
+    padding: 4rem 0;
+    border-top: 1px solid var(--line);
+}
+
+.skill-section h1 {
+    margin: 0.4rem 0 1.5rem;
+    font-size: 2rem;
+}
+
+.skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.skill-card {
+    padding: 1.25rem;
+    border-radius: var(--radius);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.skill-card h2 {
+    margin: 0.5rem 0;
+    font-size: 1.25rem;
+}
+
+.skill-card:hover {
+    transform: translateY(-8px);
+    box-shadow:
+    0 0 1px 1px var(--accent),
+    0 0 1px 1px var(--accent-dark),
+    0 0 1px 1px rgb(6, 6, 6);
+}
+
+/* Skill Header - Top Information*/
+
+.skill-top {
+    padding-bottom: 1rem;
+}
+
+.skill-header {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    min-height: 6rem;
+    border-bottom: 1px solid var(--accent-dark);
+}
+
+.skill-image {
+    max-width: 100px;
+    height: 75px;
+    object-fit: contain;
+}
+
+.skill-info {
+    padding: 1.25rem;
+}
+
+.skill-section .container h2 {
+    font-family: "Space Grotesk", -apple-system, sans-serif;
+    font-size: 1.4rem;
+    padding-left: 0.2rem;
+    margin-bottom: 0.05rem;
+}
+
+.skill-category {
+    color: var(--accent-dark);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding-left: 0.2rem;
+    text-transform: uppercase;
+}
+
+/* Skill Description*/
+
+.skill-description {
+    font-size: 1.1rem;
+    text-align: justify;
+    color: var(--text-muted);
+}
+
+/* Button */
+
+.skill-toggle {
+    display: flex;
+    flex-direction: column;
+}
+
+.skill-details {
+    order: 1;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    color: var(--text-muted);
+}
+
+.skill-button {    
+    order: 2;
+    font-family: "Space Grotesk", -apple-system, sans-serif;
+    background-color: var(--paper);
+    font-size: 1rem;
+    border-radius: var(--radius);
+    width: 12rem;
+    height: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skill-button:hover {
+    color: var(--accent-dark);
+    background-color: rgb(255, 238, 206);
+    cursor: pointer;
+}
+
+
+.skill-less-description {
+    display: none;
+}
+
+/* Button toggle */
+
+.skill-toggle[open] .skill-full-description {
+    display: none;
+}
+
+.skill-toggle[open] .skill-less-description {
+    display: inline;
+}
+
+.skill-status {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
 
 /* Footer & Responsive */
 
@@ -391,7 +541,7 @@ h1, .brand {
 }
 
 @media (max-width: 780px) {
-    /* Experience */
+    /* Experience - Tugas 1 */
     
     .experience-tugas1-list {
         grid-template-columns: 1fr;
