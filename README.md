@@ -5,7 +5,7 @@ NPM : 2506539523
 
 Class : PBP F
 
-== UPDATED ==
+## == UPDATE ==
 > Tugas 1 (Updated)
 - New Navigation (Experience)
     - New Hover effect on each option
@@ -31,7 +31,14 @@ Class : PBP F
 - Adjusted a few thing
 - Finished unit testing
 
-== PERTANYAAN REFLEKTIF - TUGAS 2 ==
+> Tutorial 3
+- New Tab (Projects)
+    - Contain few project cards
+    - New Add Project Feature
+    - New Delete Project Feature
+- Finished Tutorial 3
+
+## == PERTANYAAN REFLEKTIF - TUGAS 2 ==
 1. Jelaskan alur yang terjadi ketika pengguna membuka halaman portofolio baru, mulai dari permintaan yang diterima proyek hingga data ditampilkan pada browser. Dalam jawabanmu, jelaskan peran urls.py proyek, urls.py aplikasi, view, model, dan template.
 2. Mengapa data untuk bagian portofolio baru sebaiknya disimpan pada model dan tidak ditulis langsung di dalam template? Jelaskan dampaknya terhadap kemudahan pemeliharaan dan pengembangan aplikasi.
 3. Apa perbedaan fungsi makemigrations dan migrate pada Django? Berikan contoh perubahan model yang mengharuskanmu menjalankan kedua perintah tersebut.
@@ -99,7 +106,8 @@ Nah, dikarenakan ada field baru, Django tidak bisa langsung menerapkan perubahan
 Dalam tugas 2 ini, terdapat file migration baru yaitu 0002_skill.py (Salah satu contohnya)
 
 
-== AI Declaration ==
+## == AI Declaration ==
+
 Note:
 Pada tugas 2 ini saya tidak menggunakan AI untuk memberikan kode secara langsung / jiplak-menjiplak.
 
