@@ -62,6 +62,23 @@ def delete_experience(request, experience_id):
 
     return redirect("main:show_experience")
 
+def update_experience(request, experience_id):
+    experience = get_object_or_404(Experience, pk=experience_id)
+    form = ExperienceForm(request.POST or None, instance=experience)
+
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("main:show_experience")
+            
+    context = {
+            "name": "Fathir Azka Dillafah",
+            "form": form,
+            "experience": experience,
+        }
+    
+    return render(request, "experience_form.html", context)
+
 def get_experience_json(request):
     title_query = request.GET.get("title", "").strip()
     experiences = Experience.objects.all()

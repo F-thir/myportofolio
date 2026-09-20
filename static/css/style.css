@@ -788,12 +788,23 @@ h1, .brand {
     border-color: var(--accent);
 }
 
+.skill-change-button {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.75rem;
+}
+
+.skill-change-button .button {
+    font-size: 0.85rem;
+}
+
 /* Tugas 3 - Fixing Experience / Adding Image" */
 .experience-image {
     /* position: absolute; */
     display: block;
     width: 100%;
     height: auto;
+    margin-bottom: 1rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     border-radius: var(--radius);
     /* opacity: 0; */

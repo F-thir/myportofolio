@@ -46,8 +46,9 @@
                             {% else %}
                                 <p class="experience-status">Selesai</p>
                             {% endif %}
-                            <div class="skill-delete">
+                            <div class="skill-change-button">
                                 {% include "components/experience_delete_modal.html" with experience=experience %}
+                                <a href="{% url 'main:update_experience' experience.id %}" class="button">Edit Experience</a>
                             </div>
                         </article>
                     {% empty %}
