@@ -56,6 +56,7 @@ Class : PBP F
     
 - Implementing the same on Tab (Project)
 - New searching by category on Tab (Experience & Skill)
+- Adjustment & Few Unit Testing
 
 ## == PERTANYAAN REFLEKTIF - TUGAS 3 ==
 1. Jelaskan mengapa kita menggunakan ModelForm pada Django alih-alih membuat form HTML secara manual. Selain itu, jelaskan pula mengapa kita diwajibkan menambahkan {% csrf_token %} pada form tersebut!
@@ -64,10 +65,39 @@ Class : PBP F
 
 
 ### Tugas 3
-1. 
-2. 
-3. 
+1. Di sini, kita lebih menggunakan ModelForm pada Django dibandingkan membuat form HTML secara manual dikarenakan beberapa alasan berikut: 
+    - Mengotomatisasi proses pembuatan form, seperti field, choice, dan sebagainya (jadi tidak manual).
+    - Langsung terintegrasi dengan model untuk masing-masing database sehingga model konsisten.
+    - Memudahkan pembuatan fitur, seperti create, delete, dan update data.
 
+Jika menggunakan form HTML secara manual, kita perlu membuat setiap field, menangani proses validasi, serta penyimpanan data secara lebih manual, seperti "<.input>", "<.textarea>", dan "<.select>" sendiri. Kemudian, untuk mengambil datanya menggunakan request.POST.get() dan melakukan validasi sebelum membuat object dengan Skill.objects.create(). Dengan ModelForm, proses tersebut dapat  menggunakan "form.is_valid()" dan "form.save()".
+
+Alasan perlu menambahkan {% csrf_token %} pada form adalah untuk melindungi form dari serangan seperti Cross-Site Request Forgery (CSRF). Disini token memungkinkan Django memverifikasi bahwa request yang dikirim itu berasal dari form yang sah. Jika token tidak valid, request POST akan ditolak oleh Django (403 Forbidden).
+
+2. Dari yang saya baca, JSON lebih disukai dalam pegembangan aplikasi web modern dibanding XML karena lebih sederhana dan mudah dipahami. 
+    - Dari segi syntax, JSON menggunakan pasangan key-value dan struktur yang lebih mudah dibaca dibandingkan XML.
+    - JSON dapat langsung digunakan dalam aplikasi web berbasis JavaScript.
+    - JSON banyak digunakan untuk pertukaran data antara frontend dan backend, seperti dengan API.
+
+Contoh:
+JSON:
+{
+    "name": "Python",
+    "category": "programming"
+} 
+
+XML:
+    <.name>Python</.name>
+    <.category>programming</.category>
+
+3. Saat fungsi view digunakan untuk mengembalikan data portofolio dalam bentuk JSON, pertama Django menerima request dari user. Kemudian, view mengambil data dari database menggunakan model, misalnya dengan Project.objects.all(). Jika terdapat parameter pencarian, data dapat difilter terlebih dahulu berdasarkan parameter tersebut.
+
+Setelah mendapatkan data dari database, dilakukan proses serialization menggunakan serializers.serialize("json", projects). Proses ini mengubah objek atau QuerySet Django menjadi format JSON yang dapat dikirim melalui HTTP response. Setelah itu, JSON tersebut dikembalikan menggunakan HttpResponse dengan content_type="application/json".
+
+Intinya:
+Model/QuerySet Django → Serialization → JSON → HTTP Response → Client
+
+Di sini, proses serialization diperlukan karena data yang diperoleh dari model Django berupa object/queryset, bukan data JSON yang dapat langsung dikirim sebagai response. Dengan serialization, object/QuerySet Django berubah menjadi format JSON yang dapat dikirim melalui HTTP response.
 
 ## == AI Declaration ==
 
