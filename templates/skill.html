@@ -8,9 +8,26 @@
         <section class="skill-section" id="skill">
             <div class="container">
                 <p class="section-kicker">Skill saya sejauh ini</p>
-                <h1>Skills</h1>
-
-                <div class="skill-grid">
+                <div class="project-header">
+                    <h1>Skills</h1>
+                    <a href="{% url 'main:create_skill' %}"
+                        class="button project-add-button">
+                        <span aria-hidden="true">+</span>
+                        Tambah Skill
+                    </a>
+                </div>
+                <form method="get"
+                      action="{% url 'main:show_skill' %}"
+                      class="project-search">
+                    <input type="search"
+                           name="title"
+                           value="{{ title_query }}"
+                           placeholder="Cari berdasarkan nama skill"
+                           class="project-search__input"
+                           aria-label="Cari berdasarkan nama skill">
+                    <button type="submit" class="button">Cari</button>
+                </form>
+                <div class="skill-grid"> 
                     {% for skill in skill_list %}
                         <article class="skill-card">
                             <div class="skill-header">
@@ -40,11 +57,16 @@
                                     </div>
                                 </details>
                             </div>
+                            <div class="skill-delete">
+                                {% include "components/skill_delete_modal.html" with skill=skill %}
+                            </div>
                         </article>
                     {% empty %}
-                        <p class="empty-state">
-                            Belum ada skill yang ditambahkan.
-                        </p>
+                    {% if title_query %}
+                            <p class="empty-state">Tidak ada skill dengan nama tersebut.</p>
+                        {% else %}
+                            <p class="empty-state">Belum ada skill yang ditambahkan.</p>
+                        {% endif %}
                     {% endfor %}
                 </div>
             </div>

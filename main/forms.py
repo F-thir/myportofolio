@@ -1,6 +1,50 @@
 from django.forms import ModelForm, TextInput, Textarea, URLInput
 
-from main.models import Project
+from main.models import Project, Skill
+
+class SkillForm(ModelForm):
+    class Meta:
+        model = Skill
+        fields = [
+            "title",
+            "category",
+            "description",
+            "details",
+            "image",
+        ]
+
+        labels = {
+            "title": "Nama Skill",
+            "category": "Kategori Skill",
+            "description": "Deskripsi Skill",
+            "details":"Detail Skill",
+            "image": "URL Gambar Skill",
+        }
+
+        widgets = {
+            "title": TextInput(
+                attrs={
+                    "placeholder": "JavaScript",
+                    "maxlength": 255,
+                }
+            ),
+            "description": TextInput(
+                attrs={
+                    "placeholder": "Deskripsi Skillmu",
+                }
+            ),
+            "details": Textarea(
+                attrs={
+                    "placeholder": "Details terkait Skillmu",
+                    "rows": 3,
+                }
+            ),
+            "image": URLInput(
+                attrs={
+                    "placeholder": "https://drive.google.com/thumbnail?id=...&sz=w1000",
+                }
+            ),
+        }
 
 class ProjectForm(ModelForm):
     class Meta:
@@ -50,3 +94,4 @@ class ProjectForm(ModelForm):
                 }
             ),
         }
+
