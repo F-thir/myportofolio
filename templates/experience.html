@@ -19,12 +19,28 @@
                 <form method="get"
                       action="{% url 'main:show_experience' %}"
                       class="project-search">
+                      
                     <input type="search"
                            name="title"
                            value="{{ title_query }}"
                            placeholder="Cari berdasarkan nama experience"
                            class="project-search__input"
                            aria-label="Cari berdasarkan nama experience">
+
+                    <select name="category" class="skill-category-filter">
+                        <option value="">All Category</option>
+                        <option value="internship"
+                            {% if category_query == "internship" %}selected{% endif %}>Internship</option>
+                        <option value="research"
+                            {% if category_query == "research" %}selected{% endif %}>Research</option>
+                        <option value="volunteer" 
+                            {% if category_query == "volunteer" %}selected{% endif %}>Volunteer</option>
+                        <option value="part-time"
+                            {% if category_query == "part-time" %}selected{% endif %}>Part-Time</option>
+                        <option value="freelance"
+                            {% if category_query == "freelance" %}selected{% endif %}>Freelance</option>
+                    </select>
+
                     <button type="submit" class="button">Cari</button>
                 </form>
                 <div class="experience-grid">

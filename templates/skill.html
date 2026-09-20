@@ -19,14 +19,32 @@
                 <form method="get"
                       action="{% url 'main:show_skill' %}"
                       class="project-search">
+
                     <input type="search"
                            name="title"
                            value="{{ title_query }}"
                            placeholder="Cari berdasarkan nama skill"
                            class="project-search__input"
                            aria-label="Cari berdasarkan nama skill">
+
+                    <select name="category" class="skill-category-filter">
+                        <option value="">All Category</option>
+                        <option value="programming"
+                            {% if category_query == "programming" %}selected{% endif %}>Programming</option>
+                        <option value="language"
+                            {% if category_query == "language" %}selected{% endif %}>Language</option>
+                        <option value="software" 
+                            {% if category_query == "software" %}selected{% endif %}>Software & Tools</option>
+                        <option value="technical"
+                            {% if category_query == "technical" %}selected{% endif %}>Technical Skill</option>
+                        <option value="other"
+                            {% if category_query == "other" %}selected{% endif %}>Other</option>
+                    </select>
+
                     <button type="submit" class="button">Cari</button>
                 </form>
+
+
                 <div class="skill-grid"> 
                     {% for skill in skill_list %}
                         <article class="skill-card">

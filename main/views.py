@@ -30,11 +30,13 @@ def show_experience(request):
         )
     experiences = [experience.object for experience in experiences]
     title_query = request.GET.get("title", "").strip()
+    category_query = request.GET.get("category", "").strip()
 
     context = {
         "name": "Fathir Azka Dillafah",
         "experience_list": experiences,
         "title_query": title_query,
+        "category_query":category_query,
     }
     return render(request, "experience.html", context)
 
@@ -81,10 +83,15 @@ def update_experience(request, experience_id):
 
 def get_experience_json(request):
     title_query = request.GET.get("title", "").strip()
+    category_query = request.GET.get("category", "").strip()
+
     experiences = Experience.objects.all()
 
     if title_query:
         experiences = experiences.filter(title__icontains=title_query)
+
+    if category_query:
+        experiences = experiences.filter(category=category_query)
 
     experience_json = serializers.serialize("json", experiences)
     return HttpResponse(experience_json, content_type="application/json")
@@ -99,11 +106,13 @@ def show_skill(request):
         )
     skills = [skill.object for skill in skills]
     title_query = request.GET.get("title", "").strip()
+    category_query = request.GET.get("category", "").strip()
     
     context = {
         "name": "Fathir Azka Dillafah",
         "skill_list": skills,
         "title_query": title_query,
+        "category_query": category_query,
     }
     return render(request, "skill.html", context)
 
@@ -150,10 +159,14 @@ def update_skill(request, skill_id):
 
 def get_skill_json(request):
     title_query = request.GET.get("title", "").strip()
+    category_query = request.GET.get("category", "").strip()
     skills = Skill.objects.all()
 
     if title_query:
         skills = skills.filter(title__icontains=title_query)
+
+    if category_query:
+        skills = skills.filter(category=category_query)
 
     skill_json = serializers.serialize("json", skills)
     return HttpResponse(skill_json, content_type="application/json")
@@ -169,11 +182,13 @@ def show_projects(request):
     )
     projects = [project.object for project in projects]
     title_query = request.GET.get("title", "").strip()
+    category_query = request.GET.get("category", "").strip()
 
     context = {
         "name": "Fathir Azka Dillafah",
         "project_list": projects,
         "title_query": title_query,
+        "category_query": category_query,
     }
     return render(request, "project.html", context)
 

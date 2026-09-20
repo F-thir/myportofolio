@@ -1,4 +1,5 @@
-== IDENTITAS ==
+## == IDENTITAS ==
+
 Name : Fathir
 
 NPM : 2506539523
@@ -54,6 +55,7 @@ Class : PBP F
     - New Edit/Update button
     
 - Implementing the same on Tab (Project)
+- New searching by category on Tab (Experience & Skill)
 
 ## == PERTANYAAN REFLEKTIF - TUGAS 3 ==
 1. Jelaskan mengapa kita menggunakan ModelForm pada Django alih-alih membuat form HTML secara manual. Selain itu, jelaskan pula mengapa kita diwajibkan menambahkan {% csrf_token %} pada form tersebut!
@@ -94,7 +96,7 @@ Contoh hasil prompt:
     Bagian request.GET.get("title", "")
     Artinya: Ambil nilai dengan nama "title". Kalau tidak ada, gunakan "".
     Contoh 1:
-    ```/projects/json/?title=django
-    hasilnya: "django"```
+    /projects/json/?title=django
+    hasilnya: "django"
 
 Sebagian besar kode saya terinspirasi dari W3School serta web-web yang berkaitan.

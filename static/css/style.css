@@ -800,15 +800,26 @@ h1, .brand {
 
 /* Tugas 3 - Fixing Experience / Adding Image" */
 .experience-image {
-    /* position: absolute; */
     display: block;
     width: 100%;
     height: auto;
     margin-bottom: 1rem;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     border-radius: var(--radius);
-    /* opacity: 0; */
-    /* animation: slideshow 12s infinite; */
+}
+
+/* Tugas 3 - Category Filtering */
+.skill-category-filter {
+    font-family: "Space Grotesk", -apple-system, sans-serif;
+    font-size: 1rem;
+    height: 100%;
+    padding: 0.95rem 1rem;
+    border-radius: var(--radius);
+    color: var(--text);
+}
+
+.skill-category-filter:focus {
+    outline: 2px solid var(--accent);
 }
 
 /* Footer & Responsive */
