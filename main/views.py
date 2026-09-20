@@ -131,6 +131,23 @@ def delete_skill(request, skill_id):
 
     return redirect("main:show_skill")
 
+def update_skill(request, skill_id):
+    skill = get_object_or_404(Skill, pk=skill_id)
+    form = SkillForm(request.POST or None, instance=skill)
+
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("main:show_skill")
+            
+    context = {
+            "name": "Fathir Azka Dillafah",
+            "form": form,
+            "skill": skill,
+        }
+    
+    return render(request, "skill_form.html", context)
+
 def get_skill_json(request):
     title_query = request.GET.get("title", "").strip()
     skills = Skill.objects.all()
@@ -194,3 +211,20 @@ def delete_project(request, project_id):
         return redirect("main:show_projects")
 
     return redirect("main:show_projects")
+
+def update_project(request, project_id):
+    project = get_object_or_404(Project, pk=project_id)
+    form = ProjectForm(request.POST or None, instance=project)
+
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            return redirect("main:show_projects")
+            
+    context = {
+            "name": "Fathir Azka Dillafah",
+            "form": form,
+            "project": project,
+        }
+    
+    return render(request, "projects_form.html", context)

@@ -44,6 +44,7 @@ Class : PBP F
     - Create Skill using Form (Add)
     - Delete Skill button
     - Redirect Tab (Skill Form)
+    - New Edit/Update button
 
 - Updates on Tab (Experience)
     - Searching Experience bar
@@ -51,6 +52,8 @@ Class : PBP F
     - Delete Experience button
     - Redirect Tab (Experience Form)
     - New Edit/Update button
+    
+- Implementing the same on Tab (Project)
 
 ## == PERTANYAAN REFLEKTIF - TUGAS 3 ==
 1. Jelaskan mengapa kita menggunakan ModelForm pada Django alih-alih membuat form HTML secara manual. Selain itu, jelaskan pula mengapa kita diwajibkan menambahkan {% csrf_token %} pada form tersebut!

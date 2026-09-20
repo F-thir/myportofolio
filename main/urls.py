@@ -19,10 +19,12 @@ urlpatterns = [
     path("skill/add/", create_skill, name="create_skill"),
     path("api/skill/", get_skill_json, name="get_skills_json"),
     path("skill/<uuid:skill_id>/delete/", delete_skill, name="delete_skill"),
+    path("skill/<uuid:skill_id>/update/", update_skill, name="update_skill"),
 
     # Project
     path("projects/", show_projects, name="show_projects"),
     path("projects/add/", create_project, name="create_project"),
     path("api/projects/", get_projects_json, name="get_projects_json"),
-    path("projects/<uuid:project_id>/delete/",delete_project,name="delete_project")
+    path("projects/<uuid:project_id>/delete/", delete_project, name="delete_project"),
+    path("projects/<uuid:project_id>/update/", update_project, name="update_project")
 ]

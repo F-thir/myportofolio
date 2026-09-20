@@ -57,8 +57,9 @@
                                     </div>
                                 </details>
                             </div>
-                            <div class="skill-delete">
+                            <div class="skill-change-button">
                                 {% include "components/skill_delete_modal.html" with skill=skill %}
+                                <a href="{% url 'main:update_skill' skill.id %}" class="button">Edit Skill</a>
                             </div>
                         </article>
                     {% empty %}

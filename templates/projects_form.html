@@ -6,11 +6,17 @@
     <main>
         <section class="experience-section">
             <div class="container">
-                <h1>Add New Projects</h1>
+                {% if project %}
+                    <h1>Edit Project</h1>
+                {% else %}
+                    <h1>Add New Project</h1>
+                {% endif %}
+
                 <form method="post"
-                      action="{% url 'main:create_project' %}"
+                      action="{% if project %}{% url 'main:update_project' project.id %}{% else %}{% url 'main:create_project' %}{% endif %}"
                       class="project-form">
                     {% csrf_token %}
+
                     {% for field in form %}
                         <div class="form-group">
                             <label for="{{ field.id_for_label }}">{{ field.label }}</label>
@@ -20,8 +26,15 @@
                             {% endfor %}
                         </div>
                     {% endfor %}
-                    <button type="submit" class="button">Tambah Project</button>
+
+                    {% if project %}
+                        <button type="submit" class="button">Update Project</button>
+                    {% else %}
+                        <button type="submit" class="button">Tambah Project</button>
+                    {% endif %}
+
                     <a href="{% url 'main:show_projects' %}" class="button button-secondary">Batal</a>
+
                 </form>
             </div>
         </section>
