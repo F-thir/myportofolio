@@ -9,12 +9,15 @@ urlpatterns = [
 
     # Experience
     path("experience/", show_experience, name="show_experience"),
+    path("experience/add/", create_experience, name="create_experience"),
+    path("api/experience/", get_experience_json, name="get_experience_json"),
+    path("experience/<uuid:experience_id>/delete/", delete_experience, name="delete_experience"),
     
     # Skill
     path("skill/", show_skill, name="show_skill"),
     path("skill/add/", create_skill, name="create_skill"),
     path("api/skill/", get_skill_json, name="get_skills_json"),
-    path("skill/<uuid:skill_id>/delete/",delete_skill,name="delete_skill"),
+    path("skill/<uuid:skill_id>/delete/", delete_skill, name="delete_skill"),
 
     # Project
     path("projects/", show_projects, name="show_projects"),

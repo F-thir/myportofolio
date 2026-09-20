@@ -1,6 +1,42 @@
 from django.forms import ModelForm, TextInput, Textarea, URLInput
 
-from main.models import Project, Skill
+from main.models import Project, Skill, Experience
+
+class ExperienceForm(ModelForm):
+    class Meta:
+        model = Experience
+        fields = [
+            "title",
+            "category",
+            "description",
+            "thumbnail",
+        ]
+
+        labels = {
+            "title": "Nama Experience",
+            "category": "Kategori Experience",
+            "description": "Deskripsi Experience",
+            "thumbnail": "URL Gambar Experience",
+        }
+
+        widgets = {
+            "title": TextInput(
+                attrs={
+                    "placeholder": "Staff - Pengabdian Masyarakat BEM Fasilkom",
+                    "maxlength": 255,
+                }
+            ),
+            "description": TextInput(
+                attrs={
+                    "placeholder": "Deskripsi Experiencemu",
+                }
+            ),
+            "thumbnail": URLInput(
+                attrs={
+                    "placeholder": "https://drive.google.com/thumbnail?id=...&sz=w1000",
+                }
+            ),
+        }
 
 class SkillForm(ModelForm):
     class Meta:

@@ -788,6 +788,18 @@ h1, .brand {
     border-color: var(--accent);
 }
 
+/* Tugas 3 - Fixing Experience / Adding Image" */
+.experience-image {
+    /* position: absolute; */
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius);
+    /* opacity: 0; */
+    /* animation: slideshow 12s infinite; */
+}
+
 /* Footer & Responsive */
 
 .site-footer {
