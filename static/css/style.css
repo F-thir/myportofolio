@@ -796,6 +796,7 @@ h1, .brand {
 
 .skill-change-button .button {
     font-size: 0.85rem;
+    text-align: center;
 }
 
 /* Tugas 3 - Fixing Experience / Adding Image" */
@@ -916,6 +917,18 @@ h1, .brand {
     }
 
     .project-delete-modal__actions .button {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Tugas 3 */
+
+    .skill-change-button {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .skill-change-button .button {
         width: 100%;
         text-align: center;
     }

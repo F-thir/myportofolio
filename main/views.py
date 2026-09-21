@@ -10,6 +10,7 @@ from main.forms import ProjectForm, SkillForm, ExperienceForm
 def show_main(request):
     context = {
         "name": "Fathir Azka Dillafah",
+        "nickname": "Fathir",
         "npm": "2506539523",
         "study_program": "S1 Sistem Informasi",
         "bio": (
@@ -34,6 +35,7 @@ def show_experience(request):
 
     context = {
         "name": "Fathir Azka Dillafah",
+        "nickname": "Fathir",
         "experience_list": experiences,
         "title_query": title_query,
         "category_query":category_query,
@@ -49,7 +51,8 @@ def create_experience(request):
         return redirect("main:show_experience")
 
     context = {
-        "name": "Fathir Azka Dillafah",
+        "name": "Fathir Azka Dillafah",''
+        "nickname": "Fathir",
         "form": form,
     }
     return render(request, "experience_form.html", context)
@@ -75,6 +78,7 @@ def update_experience(request, experience_id):
             
     context = {
             "name": "Fathir Azka Dillafah",
+            "nickname": "Fathir",
             "form": form,
             "experience": experience,
         }
@@ -110,6 +114,7 @@ def show_skill(request):
     
     context = {
         "name": "Fathir Azka Dillafah",
+        "nickname": "Fathir",
         "skill_list": skills,
         "title_query": title_query,
         "category_query": category_query,
@@ -126,6 +131,7 @@ def create_skill(request):
 
     context = {
         "name": "Fathir Azka Dillafah",
+        "nickname": "Fathir",
         "form": form,
     }
     return render(request, "skill_form.html", context)
@@ -151,6 +157,7 @@ def update_skill(request, skill_id):
             
     context = {
             "name": "Fathir Azka Dillafah",
+            "nickname": "Fathir",
             "form": form,
             "skill": skill,
         }
@@ -186,6 +193,7 @@ def show_projects(request):
 
     context = {
         "name": "Fathir Azka Dillafah",
+        "nickname": "Fathir",
         "project_list": projects,
         "title_query": title_query,
         "category_query": category_query,
@@ -203,6 +211,7 @@ def create_project(request):
 
     context = {
         "name": "Fathir Azka Dillafah",
+        "nickname": "Fathir",
         "form": form,
     }
     return render(request, "projects_form.html", context)
@@ -238,6 +247,7 @@ def update_project(request, project_id):
             
     context = {
             "name": "Fathir Azka Dillafah",
+            "nickname": "Fathir",
             "form": form,
             "project": project,
         }
