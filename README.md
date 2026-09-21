@@ -57,6 +57,7 @@ Class : PBP F
 - Implementing the same on Tab (Project)
 - New searching by category on Tab (Experience & Skill)
 - Adjustment & Few Unit Testing
+- Adjust Responsive
 
 ## == PERTANYAAN REFLEKTIF - TUGAS 3 ==
 1. Jelaskan mengapa kita menggunakan ModelForm pada Django alih-alih membuat form HTML secara manual. Selain itu, jelaskan pula mengapa kita diwajibkan menambahkan {% csrf_token %} pada form tersebut!

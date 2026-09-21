@@ -881,9 +881,26 @@ h1, .brand {
         justify-content: flex-start;
     }
 
-        .project-header {
+    .project-header {
         align-items: flex-start;
         flex-direction: column;
+    }
+
+    /* Nav */
+    .site-header .container {
+        padding: 1rem;
+    }
+
+    .brand {
+        font-size: 1rem;
+    }
+
+    .site-header nav {
+        gap: 0.7rem;
+    }
+
+    .site-header nav a {
+        font-size: 0.7rem;
     }
 
     /* Tutorial 3 */
