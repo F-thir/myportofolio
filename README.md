@@ -67,6 +67,7 @@ Class : PBP F
 
 > Tugas 4 
 - Adjust superuser on each Tab (Experience, Skill)
+- Added Editor permission & authorization
 
 ## == PERTANYAAN REFLEKTIF - TUGAS 4 ==
 Pada tugas 4, tidak ada pertanyaan reflektif.
