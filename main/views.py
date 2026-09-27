@@ -107,6 +107,18 @@ def update_experience(request, experience_id):
     
     return render(request, "experience_form.html", context)
 
+@login_required(login_url="/login/")
+def toggle_star_experience(request, experience_id):
+    experience = get_object_or_404(Experience, pk=experience_id)
+
+    if request.method == "POST":
+        if request.user in experience.starred_by.all():
+            experience.starred_by.remove(request.user)
+        else:
+            experience.starred_by.add(request.user)
+
+    return redirect("main:show_experience")
+
 def get_experience_json(request):
     title_query = request.GET.get("title", "").strip()
     category_query = request.GET.get("category", "").strip()
@@ -119,7 +131,7 @@ def get_experience_json(request):
     if category_query:
         experiences = experiences.filter(category=category_query)
 
-    experience_json = serializers.serialize("json", experiences)
+    experience_json = serializers.serialize("json", experiences ,use_natural_foreign_keys=True)
     return HttpResponse(experience_json, content_type="application/json")
 
 # Skills
@@ -315,7 +327,7 @@ def update_project(request, project_id):
     return render(request, "projects_form.html", context)
 
 @login_required(login_url="/login/")
-def toggle_star(request, project_id):
+def toggle_star_project(request, project_id):
     project = get_object_or_404(Project, pk=project_id)
 
     if request.method == "POST":
@@ -325,7 +337,6 @@ def toggle_star(request, project_id):
             project.starred_by.add(request.user)
 
     return redirect("main:show_projects")
-
 
 # Registers
 def register(request):

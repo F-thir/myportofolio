@@ -67,11 +67,12 @@
                                 <p class="experience-status">Selesai</p>
                             {% endif %}
                             <div class="skill-change-button">
+                                {% include "components/experience_star.html" with experience=experience %}
                                 {% if perms.main.delete_experience %}
                                 {% include "components/experience_delete_modal.html" with experience=experience %}
                                 {% endif %}
                                 {% if perms.main.change_experience %}
-                                <a href="{% url 'main:update_experience' experience.id %}" class="button">Edit Experience</a>
+                                <a href="{% url 'main:update_experience' experience.id %}" class="button">Edit</a>
                                 {% endif %}
                             </div>
                         </article>

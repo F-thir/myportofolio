@@ -809,6 +809,39 @@ h1, .brand {
     border-radius: var(--radius);
 }
 
+/* Tutorial 4 */
+.star-form {
+    display: inline;
+}
+
+.button-star {
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background: var(--ink);
+}
+
+.button-star.is-starred {
+    background: var(--accent);
+}
+
+.button-star span {
+    color: white;
+}
+
+.button-star.is-starred span {
+    color: #FFD700;
+}
+
+.star-count {
+    padding: 0.05rem 0.4rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.25);
+    font-size: 0.8rem;
+}
+
 /* Tugas 3 - Category Filtering */
 .skill-category-filter {
     font-family: "Space Grotesk", -apple-system, sans-serif;
@@ -823,28 +856,6 @@ h1, .brand {
     outline: 2px solid var(--accent);
 }
 
-/* Tutorial 3 */
-.star-form {
-    display: inline;
-}
-
-.button-star {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    background: var(--ink);
-}
-
-.button-star.is-starred {
-    background: var(--accent);
-}
-
-.star-count {
-    padding: 0.05rem 0.4rem;
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.25);
-    font-size: 0.8rem;
-}
 
 /* Footer & Responsive */
 
@@ -853,6 +864,19 @@ h1, .brand {
     color: var(--text-muted);
     font-size: 0.85rem;
     border-top: 1px solid var(--line);
+}
+
+@media (max-width: 1000px) {
+   /* Tugas 4 */
+    .skill-change-button {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .skill-change-button .button {
+        width: 100%;
+        text-align: center;
+    }
 }
 
 @media (max-width: 780px) {
@@ -922,7 +946,7 @@ h1, .brand {
         gap: 0.7rem;
     }
 
-    .site-header nav a {
+    .site-header nav a span{
         font-size: 0.7rem;
     }
 
@@ -957,18 +981,6 @@ h1, .brand {
     }
 
     .project-delete-modal__actions .button {
-        width: 100%;
-        text-align: center;
-    }
-
-    /* Tugas 3 */
-
-    .skill-change-button {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .skill-change-button .button {
         width: 100%;
         text-align: center;
     }

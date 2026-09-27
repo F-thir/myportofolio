@@ -68,6 +68,8 @@ Class : PBP F
 > Tugas 4 
 - Adjust superuser on each Tab (Experience, Skill)
 - Added Editor permission & authorization
+- New star feature in Tab (Experience)
+- Adjust CSS & Responsive
 
 ## == PERTANYAAN REFLEKTIF - TUGAS 4 ==
 Pada tugas 4, tidak ada pertanyaan reflektif.
@@ -75,31 +77,28 @@ Pada tugas 4, tidak ada pertanyaan reflektif.
 ## == AI Declaration ==
 
 Note:
-Pada tugas 3 ini saya tidak menggunakan AI untuk memberikan kode secara langsung / jiplak-menjiplak.
+Pada tugas 4 ini saya tidak menggunakan AI untuk memberikan kode secara langsung / jiplak-menjiplak.
 
 Strategi Prompting:
 Saya menggunakan "ChatGPT" sebagai wadah untuk bertanya terkait hal-hal yang saya tidak bisa temukan lebih lanjut melalui W3School dan sumber lainnya.
 Hal tersebut guna mempercepat dan memperjelas pencarian terkait apa yang saya perlukan, serta menghilangkan beberapa error yang terjadi.
 
 Contoh:
-1. Bisakah anda menjelaskan secara detail baris per baris maksud kegunaan dari kode berikut:
-
-    ```def get_projects_json(request):```
-        ```title_query = request.GET.get("title", "").strip()```
-        ```projects = Project.objects.all() if title_query:``` 
-        ```if title_query:```
-            ```projects = projects.filter(title__icontains=title_query)```
-        ```projects_json = serializers.serialize("json", projects)```
-        ```return HttpResponse(projects_json, content_type="application/json")```
-
-Disini AI menjawab dan menjelaskan baris per baris supaya saya dapat lebih memahami konsep yang dilakukan di sini:
+1. Bisakah anda menjelaskan konsep Django Admin untuk permission?
+Disini AI menjawab dan menjelaskan konsep User dan Group:
 
 Contoh hasil prompt:
+    Pada model Electronics
+    class Electronics(models.Model):
+        name = models.CharField(max_length=...)
+        ...
 
-    Bagian request.GET.get("title", "")
-    Artinya: Ambil nilai dengan nama "title". Kalau tidak ada, gunakan "".
-    Contoh 1:
-    /projects/json/?title=django
-    hasilnya: "django"
+    Django otomatis membuat permission:
+    add_electronics
+    change_electronics
+    delete_electronics
+    view_electronics
 
-Sebagian besar kode saya terinspirasi dari W3School serta web-web yang berkaitan.
+    Pada Django Admin, Anda bisa membuat group yang menggunakan beberapa permission tersebut.
+
+Sebagian besar kode saya terinspirasi dari W3School, Django Documentation, serta web-web yang berkaitan.

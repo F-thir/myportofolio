@@ -13,6 +13,7 @@ urlpatterns = [
     path("api/experience/", get_experience_json, name="get_experience_json"),
     path("experience/<uuid:experience_id>/delete/", delete_experience, name="delete_experience"),
     path("experience/<uuid:experience_id>/update/", update_experience, name="update_experience"),
+    path("experience/<uuid:experience_id>/star/", toggle_star_experience, name="toggle_star_experience"),
     
     # Skill
     path("skill/", show_skill, name="show_skill"),
@@ -27,7 +28,7 @@ urlpatterns = [
     path("api/projects/", get_projects_json, name="get_projects_json"),
     path("projects/<uuid:project_id>/delete/", delete_project, name="delete_project"),
     path("projects/<uuid:project_id>/update/", update_project, name="update_project"),
-    path("projects/<uuid:project_id>/star/", toggle_star, name="toggle_star"),
+    path("projects/<uuid:project_id>/star/", toggle_star_project, name="toggle_star_project"),
 
 
     # Authentication
