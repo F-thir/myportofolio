@@ -59,6 +59,12 @@ Class : PBP F
 - Adjustment & Few Unit Testing
 - Adjust Responsive
 
+> Tutorial 4
+- New Login, Register, Logout system
+- New Cookie & Session system
+- New star feature in Tab (Projects)
+- Finished Tutorial 4
+
 ## == PERTANYAAN REFLEKTIF - TUGAS 3 ==
 1. Jelaskan mengapa kita menggunakan ModelForm pada Django alih-alih membuat form HTML secara manual. Selain itu, jelaskan pula mengapa kita diwajibkan menambahkan {% csrf_token %} pada form tersebut!
 2. Pada Tutorial 03, kita membahas format data JSON dan XML. Mengapa JSON lebih disukai dalam pengembangan aplikasi web modern dibandingkan XML?
