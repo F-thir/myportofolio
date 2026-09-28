@@ -69,6 +69,9 @@ Class : PBP F
 - Adjust superuser on each Tab (Experience, Skill)
 - Added Editor permission & authorization
 - New star feature in Tab (Experience)
+- New star effect:
+    - If star clicked/hold, floating star fading animation
+    - If card is starred, highlight with yellow border
 - Adjust CSS & Responsive
 
 ## == PERTANYAAN REFLEKTIF - TUGAS 4 ==

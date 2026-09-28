@@ -809,12 +809,13 @@ h1, .brand {
     border-radius: var(--radius);
 }
 
-/* Tutorial 4 */
+/* Tutorial 4 - Stars */
 .star-form {
     display: inline;
 }
 
 .button-star {
+    position: relative;
     display: inline-flex;
     align-items: center;
     text-align: center;
@@ -840,6 +841,49 @@ h1, .brand {
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.25);
     font-size: 0.8rem;
+}
+
+/* Stars Effect Animation */
+.button-star::after {
+    content: "★";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    color: #FFD700;
+    text-shadow:
+        -1px -1px 0 white,
+        1px -1px 0 white,
+        -1px  1px 0 white,
+        1px  1px 0 white;
+    font-size: 1rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.5);
+}
+
+.button-star:active::after {
+    animation: star-fly 0.7s ease-out;
+}
+
+@keyframes star-fly {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.5);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -100px) scale(2.5);
+    }
+}
+
+.experience-card.is-starred {
+    outline: 1px solid #FFD700;
 }
 
 /* Tugas 3 - Category Filtering */

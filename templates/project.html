@@ -30,7 +30,7 @@
                 </form>
                 <div class="experience-grid">
                     {% for project in project_list %}
-                        <article class="experience-card">
+                        <article class="experience-card {% if user in project.starred_by.all %} is-starred {% endif %}">
                             {% if project.project_image_url %}
                                 <img src="{{ project.project_image_url }}"
                                      alt="Gambar {{ project.title }}"

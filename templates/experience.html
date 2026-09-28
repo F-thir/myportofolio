@@ -49,7 +49,7 @@
                 </form>
                 <div class="experience-grid">
                     {% for experience in experience_list %}
-                        <article class="experience-card">
+                        <article class="experience-card {% if user in experience.starred_by.all %} is-starred {% endif %}">
                             <span class="experience-category">
                                 {{ experience.get_category_display }}
                             </span>
