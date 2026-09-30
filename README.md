@@ -74,6 +74,14 @@ Class : PBP F
     - If card is starred, highlight with yellow border
 - Adjust CSS & Responsive
 
+> Tutorial 5
+- New Toast Notification
+- New Search Debouncing
+- New form in the same tab (Project)
+- New XSS protection system
+- Adjust with Previous Assignment
+- Finished Tutorial 5
+
 ## == PERTANYAAN REFLEKTIF - TUGAS 4 ==
 Pada tugas 4, tidak ada pertanyaan reflektif.
 

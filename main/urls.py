@@ -29,7 +29,7 @@ urlpatterns = [
     path("projects/<uuid:project_id>/delete/", delete_project, name="delete_project"),
     path("projects/<uuid:project_id>/update/", update_project, name="update_project"),
     path("projects/<uuid:project_id>/star/", toggle_star_project, name="toggle_star_project"),
-
+    path("projects/add-ajax/", create_project_ajax, name="create_project_ajax"),
 
     # Authentication
     path("register/", register, name="register"),
