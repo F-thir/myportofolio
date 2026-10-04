@@ -167,7 +167,6 @@ def create_experience_ajax(request):
 
     return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
 
-
 # Skills
 
 def show_something(request):
@@ -186,22 +185,17 @@ def add_stars(request, soemthing_id):
 
 
 def show_skill(request):
-    json_response = get_skill_json(request)
-    skills = serializers.deserialize(
-            "json",
-            json_response.content.decode("utf-8"),
-        )
-    skills = [skill.object for skill in skills]
     title_query = request.GET.get("title", "").strip()
     category_query = request.GET.get("category", "").strip()
     
     context = {
         "name": "Fathir Azka Dillafah",
         "nickname": "Fathir",
-        "skill_list": skills,
         "title_query": title_query,
         "category_query": category_query,
+        "form": SkillForm(),
     }
+
     return render(request, "skill.html", context)
 
 @login_required(login_url="/login/")
@@ -221,6 +215,7 @@ def create_skill(request):
         "nickname": "Fathir",
         "form": form,
     }
+
     return render(request, "skill_form.html", context)
 
 @login_required(login_url="/login/")
@@ -262,6 +257,7 @@ def update_skill(request, skill_id):
 def get_skill_json(request):
     title_query = request.GET.get("title", "").strip()
     category_query = request.GET.get("category", "").strip()
+
     skills = Skill.objects.all()
 
     if title_query:
@@ -270,8 +266,40 @@ def get_skill_json(request):
     if category_query:
         skills = skills.filter(category=category_query)
 
-    skill_json = serializers.serialize("json", skills)
-    return HttpResponse(skill_json, content_type="application/json")
+    data = []
+    for skill in skills:
+
+        data.append({
+            "pk": str(skill.id),
+            "fields": {
+                "image": skill.image,
+                "title": skill.title,
+                "description": skill.description,
+                "category": skill.category,
+                "details": skill.details,
+            }
+        })
+
+    return JsonResponse(data, safe=False)
+
+@require_POST
+def create_skill_ajax(request):
+    if not request.user.has_perm("main.add_skill"):
+        return JsonResponse(
+            {"message": "Hanya pemilik portofolio yang dapat menambahkan skill."},
+            status=403,
+        )
+
+    form = SkillForm(request.POST)
+    if form.is_valid():
+        skill = form.save()
+        return JsonResponse(
+            {"message": "Skill berhasil ditambahkan.", "pk": str(skill.id)},
+            status=201,
+        )
+
+    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
+
 
 # Projects
 

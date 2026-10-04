@@ -83,7 +83,7 @@ Class : PBP F
 - Finished Tutorial 5
 
 > Tugas 5
-- Adjusting the 'Experience' tab to match 'Tugas 5' requirements:
+- Adjusting the 'Experience' and 'Skill' tab to match 'Tugas 5' requirements:
     - View Data with AJAX
     - Search with Debouncing
     - Add Data with Modal & AJAX
