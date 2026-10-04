@@ -82,13 +82,23 @@ Class : PBP F
 - Adjust with Previous Assignment
 - Finished Tutorial 5
 
-## == PERTANYAAN REFLEKTIF - TUGAS 4 ==
-Pada tugas 4, tidak ada pertanyaan reflektif.
+> Tugas 5
+- Adjusting the 'Experience' tab to match 'Tugas 5' requirements:
+    - View Data with AJAX
+    - Search with Debouncing
+    - Add Data with Modal & AJAX
+    - Toast Notification
+    - XSS protection system
+
+## == PERTANYAAN REFLEKTIF - TUGAS 5 ==
+1. Jelaskan apa itu debouncing dan mengapa teknik ini penting diterapkan pada fitur pencarian yang menggunakan AJAX!
+2. Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
+3. Jelaskan apa itu serangan XSS (Cross-Site Scripting) dan mengapa data yang ditampilkan melalui AJAX/JavaScript lebih rentan terhadap serangan ini daripada data yang ditampilkan langsung melalui template Django!
 
 ## == AI Declaration ==
 
 Note:
-Pada tugas 4 ini saya tidak menggunakan AI untuk memberikan kode secara langsung / jiplak-menjiplak.
+Pada tugas 5 ini saya tidak menggunakan AI untuk memberikan kode secara langsung / jiplak-menjiplak.
 
 Strategi Prompting:
 Saya menggunakan "ChatGPT" sebagai wadah untuk bertanya terkait hal-hal yang saya tidak bisa temukan lebih lanjut melalui W3School dan sumber lainnya.

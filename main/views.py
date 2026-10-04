@@ -34,23 +34,17 @@ def show_main(request):
 # Experience 
 
 def show_experience(request):
-    json_response = get_experience_json(request)
-
-    experiences = serializers.deserialize(
-            "json",
-            json_response.content.decode("utf-8"),
-        )
-    experiences = [experience.object for experience in experiences]
     title_query = request.GET.get("title", "").strip()
     category_query = request.GET.get("category", "").strip()
 
     context = {
         "name": "Fathir Azka Dillafah",
         "nickname": "Fathir",
-        "experience_list": experiences,
         "title_query": title_query,
         "category_query":category_query,
+        "form": ExperienceForm(),
     }
+
     return render(request, "experience.html", context)
 
 @login_required(login_url="/login/")
@@ -66,7 +60,7 @@ def create_experience(request):
         return redirect("main:show_experience")
 
     context = {
-        "name": "Fathir Azka Dillafah",''
+        "name": "Fathir Azka Dillafah",
         "nickname": "Fathir",
         "form": form,
     }
@@ -132,8 +126,47 @@ def get_experience_json(request):
     if category_query:
         experiences = experiences.filter(category=category_query)
 
-    experience_json = serializers.serialize("json", experiences ,use_natural_foreign_keys=True)
-    return HttpResponse(experience_json, content_type="application/json")
+    data = []
+    for experience in experiences:
+        starred_users = experience.starred_by.all()
+        is_starred = request.user in starred_users if request.user.is_authenticated else False
+        starred_by_names = ", ".join([u.username for u in starred_users])
+
+        data.append({
+            "pk": str(experience.id),
+            "fields": {
+                "title": experience.title,
+                "description": experience.description,
+                "category": experience.category,
+                "thumbnail": experience.thumbnail,
+                "started_at": experience.started_at,
+                "ended_at": experience.ended_at,
+                "star_count": starred_users.count(),
+                "is_starred": is_starred,
+                "starred_by_names": starred_by_names,
+            }
+        })
+
+    return JsonResponse(data, safe=False)
+
+@require_POST
+def create_experience_ajax(request):
+    if not request.user.has_perm("main.add_experience"):
+        return JsonResponse(
+            {"message": "Hanya pemilik portofolio yang dapat menambahkan experience."},
+            status=403,
+        )
+
+    form = ExperienceForm(request.POST)
+    if form.is_valid():
+        experience = form.save()
+        return JsonResponse(
+            {"message": "Proyek berhasil ditambahkan.", "pk": str(experience.id)},
+            status=201,
+        )
+
+    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
+
 
 # Skills
 
@@ -352,7 +385,7 @@ def toggle_star_project(request, project_id):
 
 @require_POST
 def create_project_ajax(request):
-    if not request.user.is_superuser:
+    if not request.user.has_perm("main.add_project"):
         return JsonResponse(
             {"message": "Hanya pemilik portofolio yang dapat menambahkan proyek."},
             status=403,
