@@ -57,26 +57,25 @@ class MainTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "experience.html")
-        self.assertContains(response, self.experience.title)
-        self.assertContains(response, self.experience.description)
-        self.assertContains(response, "Part-Time")
-        self.assertContains(response, "Sedang berlangsung")
+        self.assertContains(response, "Experience")
+        self.assertContains(response, "Cari berdasarkan nama experience")
+        self.assertContains(response, "All Category")
         self.assertContains(response, f'href="{reverse("main:show_main")}"')
 
     def test_empty_experience_page(self):
         Experience.objects.all().delete()
         response = self.client.get(reverse("main:show_experience"))
-
-        self.assertContains(response, "Belum ada pengalaman yang ditambahkan.")
+        self.assertContains(response, "Belum ada experience yang ditambahkan atau ditemukan.")
 
     def test_completed_experience(self):
         self.experience.ended_at = timezone.now()
         self.experience.save()
-        response = self.client.get(reverse("main:show_experience"))
 
-        self.assertFalse(self.experience.is_ongoing)
-        self.assertContains(response, "Selesai")
-        self.assertNotContains(response, "Sedang berlangsung")
+        response = self.client.get(reverse("main:get_experience_json"), {"title": self.experience.title})
+        data = response.json()
+
+        self.assertEqual(len(data), 1)
+        self.assertFalse(data[0]["fields"]["is_ongoing"])
 
     def test_create_experience(self):
         response = self.client.post(reverse("main:create_experience"),
@@ -111,16 +110,15 @@ class MainTest(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "skill.html")
-        self.assertContains(response, self.skill.title)
-        self.assertContains(response, self.skill.description)
-        self.assertContains(response, "Programming")
-        self.assertContains(response, "Bahasa pemrograman yang saya gunakan untuk mempelajari konsep dasar pemrograman dan Object-Oriented Programming.")
+        self.assertContains(response, "Skills")
+        self.assertContains(response, "Cari berdasarkan nama skill")
+        self.assertContains(response, "All Category")
         self.assertContains(response, f'href="{reverse("main:show_main")}"')
-
+        
     def test_empty_skill_page(self):
         Skill.objects.all().delete()
         response = self.client.get(reverse("main:show_skill"))
-        self.assertContains(response, "Belum ada skill yang ditambahkan.")
+        self.assertContains(response, "Belum ada skill yang ditambahkan atau ditemukan.")
 
     def test_create_skill(self):
         response = self.client.post(
@@ -136,14 +134,18 @@ class MainTest(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertTrue(Skill.objects.filter(title="Python").exists())
 
+
     def test_skill_search(self):
         response = self.client.get(
-            reverse("main:show_skill"),
+            reverse("main:get_skills_json"),
             {"title": "Python"}
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Python")
+
+        data = response.json()
+        self.assertEqual(len(data), 1)
+        self.assertEqual(data[0]["fields"]["title"], "Python")
 
     # Project
     def test_project_model(self):
@@ -155,16 +157,16 @@ class MainTest(TestCase):
     def test_project_page(self):
         response = self.client.get(reverse("main:show_projects"))
         self.assertEqual(response.status_code, 200)
+
         self.assertTemplateUsed(response, "project.html")
-        self.assertContains(response, self.project.title)
-        self.assertContains(response, "Build personal AI Assistant with Hermes")
-        self.assertContains(response, self.project.tech_stack)
+        self.assertContains(response, "Projects")
+        self.assertContains(response, "Cari berdasarkan nama proyek")
         self.assertContains(response, f'href="{reverse("main:show_main")}"')
 
     def test_empty_project_page(self):
         Project.objects.all().delete()
         response = self.client.get(reverse("main:show_projects"))
-        self.assertContains(response, "Belum ada proyek yang ditambahkan.")
+        self.assertContains(response, "Belum ada proyek yang ditambahkan atau ditemukan.")
 
     def test_create_project(self):
         response = self.client.post(
@@ -182,9 +184,12 @@ class MainTest(TestCase):
 
     def test_project_search(self):
         response = self.client.get(
-            reverse("main:show_projects"),
+            reverse("main:get_projects_json"),
             {"title": "Fern AI Assistant"}
         )
 
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Fern AI Assistant")
+
+        data = response.json()
+        self.assertEqual(len(data), 1)
+        self.assertEqual(data[0]["fields"]["title"], "Fern AI Assistant")

@@ -139,6 +139,7 @@ def get_experience_json(request):
                 "description": experience.description,
                 "category": experience.category,
                 "thumbnail": experience.thumbnail,
+                "is_ongoing": experience.is_ongoing,
                 "started_at": experience.started_at,
                 "ended_at": experience.ended_at,
                 "star_count": starred_users.count(),

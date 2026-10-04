@@ -160,6 +160,10 @@
                 <span class="experience-category">${escapeHtml(experience.category)}</span>
                 <p class="experience-description">${escapeHtml(experience.description)}</p>
 
+                ${experience.is_ongoing
+                ? `<p class="experience-status">Sedang berlangsung</p>`
+                : `<p class="experience-status">Selesai</p>`}
+
                 <div class="skill-change-button">
                     <form method="post" action="${starUrl}" class="star-form">
                         {% csrf_token %}
