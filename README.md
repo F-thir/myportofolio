@@ -90,6 +90,7 @@ Class : PBP F
     - Toast Notification
     - XSS protection system
 - Adjust & Unit Testing
+- New Update Data with Modal & AJAX on tab (Experience)
 
 ## == PERTANYAAN REFLEKTIF - TUGAS 5 ==
 1. Jelaskan apa itu debouncing dan mengapa teknik ini penting diterapkan pada fitur pencarian yang menggunakan AJAX!

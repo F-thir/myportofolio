@@ -162,8 +162,29 @@ def create_experience_ajax(request):
     if form.is_valid():
         experience = form.save()
         return JsonResponse(
-            {"message": "Proyek berhasil ditambahkan.", "pk": str(experience.id)},
+            {"message": "Experience berhasil ditambahkan.", "pk": str(experience.id)},
             status=201,
+        )
+
+    return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
+
+@require_POST
+def update_experience_ajax(request, experience_id):
+    if not request.user.has_perm("main.change_experience"):
+        return JsonResponse(
+            {"message": "Hanya pemilik portofolio yang dapat mengedit experience."},
+            status=403,
+        )
+
+    experience = get_object_or_404(Experience, id=experience_id)
+
+    form = ExperienceForm(request.POST, instance=experience)
+
+    if form.is_valid():
+        experience = form.save()
+        return JsonResponse(
+            {"message": "Experience berhasil diperbarui.", "pk": str(experience.id)},
+            status=200,
         )
 
     return JsonResponse({"errors": form.errors.get_json_data()}, status=400)
