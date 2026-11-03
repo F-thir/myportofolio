@@ -92,6 +92,16 @@ Class : PBP F
 - Adjust & Unit Testing
 - New Update Data with Modal & AJAX on tab (Experience)
 
+> Tutorial 7
+- Implemented Django REST Framework (DRF) for Projects API
+- Updated requirements.txt
+- New Project Serializer
+- New API Permission System
+- New API Unit Testing
+- Adjust Projects AJAX with DRF API
+- Adjust with Previous Assignment
+- Finished Tutorial 7
+
 ## == PERTANYAAN REFLEKTIF - TUGAS 5 ==
 1. Jelaskan apa itu debouncing dan mengapa teknik ini penting diterapkan pada fitur pencarian yang menggunakan AJAX!
 2. Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
