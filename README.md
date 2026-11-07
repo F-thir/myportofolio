@@ -102,9 +102,9 @@ Class : PBP F
 - Adjust with Previous Assignment
 - Finished Tutorial 7
 
-> Tugas 6
+> Tugas 6 (Updated)
 - Adjusting 'Experience' to match 'Tugas 6' requirements:
-    - Implemented Django REST Framework (DRF) for Experience API
+    - Implemented Django REST Framework (DRF)
     - New Experience Serializer
     - New API Permission System
     - Adjust Experience AJAX with DRF API
@@ -112,6 +112,12 @@ Class : PBP F
     - New Update Data with Modal
     - New "Edit" button
     - Adjust text, design, and script on HTML
+- Adjusting 'Skill' to match 'Tugas 6' requirements and consistency:
+    - Implemented Django REST Framework (DRF)
+    - New Update Data with Modal
+    - New Skill Serializer
+    - New API Permission System
+    - Adjust Skill AJAX with DRF API
 
 
 ## == PERTANYAAN REFLEKTIF - TUGAS 6 ==

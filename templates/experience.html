@@ -226,6 +226,11 @@
             }
         }
 
+        function apiErrorMessage(data, status) {
+            const messages = Object.values(data).flat().filter(value => typeof value === 'string');
+            return messages.join(' ') || `Request failed (HTTP ${status}).`;
+        }
+
         // Event Handlers untuk Form Search
         function searchExperience() {
             fetchExperiences(searchInput.value.trim(), categoryFilter.value);
@@ -289,7 +294,7 @@
 
                 experienceForm.reset();
                 closeExperienceModal();
-                document.getElementById('add-experience-modal').hidePopover();
+                
                 showToast('Berhasil!', 'Experience baru berhasil ditambahkan!', 'success');
 
                 await fetchExperiences(searchInput.value.trim(), categoryFilter.value);

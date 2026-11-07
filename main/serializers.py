@@ -1,7 +1,7 @@
 from django.utils.html import strip_tags
 from rest_framework import serializers
 
-from main.models import Project, Experience
+from main.models import Project, Experience, Skill
 
 
 class ExperienceSerializer(serializers.ModelSerializer):
@@ -38,6 +38,27 @@ class ExperienceSerializer(serializers.ModelSerializer):
 
     def get_starred_by_names(self, obj):
         return ", ".join(user.username for user in obj.starred_by.all())
+
+class SkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Skill
+        fields = [
+            "id", "image", "title", "description", "category", "details",
+        ]
+        read_only_fields = ["id"]
+
+    def validate_title(self, value):
+        value = strip_tags(value).strip()
+        if not value:
+            raise serializers.ValidationError("Title cannot be empty.")
+        return value
+
+    def validate_description(self, value):
+        return strip_tags(value)
+    
+    def validate_details(self, value):
+        return strip_tags(value)
+
     
 class ProjectSerializer(serializers.ModelSerializer):
     star_count = serializers.SerializerMethodField()
