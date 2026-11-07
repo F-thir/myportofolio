@@ -102,96 +102,113 @@ Class : PBP F
 - Adjust with Previous Assignment
 - Finished Tutorial 7
 
-## == PERTANYAAN REFLEKTIF - TUGAS 5 ==
-1. Jelaskan apa itu debouncing dan mengapa teknik ini penting diterapkan pada fitur pencarian yang menggunakan AJAX!
-2. Jelaskan fungsi dari penggunaan await ketika kita menggunakan fetch()! Apa yang akan terjadi jika kita tidak menggunakan await?
-3. Jelaskan apa itu serangan XSS (Cross-Site Scripting) dan mengapa data yang ditampilkan melalui AJAX/JavaScript lebih rentan terhadap serangan ini daripada data yang ditampilkan langsung melalui template Django!
+> Tugas 6
+- Adjusting 'Experience' to match 'Tugas 6' requirements:
+    - Implemented Django REST Framework (DRF) for Experience API
+    - New Experience Serializer
+    - New API Permission System
+    - Adjust Experience AJAX with DRF API
+- Adjusting 'Projects' to match consistency:
+    - New Update Data with Modal
+    - New "Edit" button
+    - Adjust text, design, and script on HTML
 
-### Tugas 5
 
-1. Teknik debouncing adalah teknik untuk memberikan jeda sebelum menjalankan suatu fungsi. Pada fitur pencarian menggunakan AJAX, debouncing digunakan supaya request ke server tidak dikirim setiap kali pengguna mengetik satu karakter.
+## == PERTANYAAN REFLEKTIF - TUGAS 6 ==
+1. Jelaskan apa yang dimaksud dengan REST dan mengapa mengembalikan JSON saja belum cukup untuk menyebut sebuah API sebagai RESTful! Jelaskan pula perbedaan PUT dan PATCH beserta contoh kapan masing-masing sebaiknya digunakan!
+2. Jelaskan peran serializer pada Django REST Framework! Apa keuntungannya dibandingkan merakit dictionary secara manual dengan JsonResponse seperti pada Tutorial 05?
+3. Jelaskan perbedaan autentikasi dan otorisasi pada Django REST Framework! Mengapa hak akses harus diperiksa dengan permission class di server, bukan hanya dengan menyembunyikan tombol di template?
+4. Jelaskan mengapa permintaan yang mengubah data tetap memerlukan token CSRF ketika API memakai SessionAuthentication! Mengapa test yang memakai force_authenticate tidak cukup untuk membuktikan bahwa perlindungan CSRF berjalan?
 
-Misalnya, ketika pengguna ingin mencari kata "Python", tanpa debouncing, perubahan input seperti "P", "Py", "Pyt", "Pyth", "Pytho", hingga "Python" dapat menyebabkan request AJAX dikirim ke server. Hal tersebut membuat request yang dikirim menjadi lebih banyak padahal masih dalam proses mengetik.
-
-Dengan debouncing, request hanya akan dijalankan setelah pengguna berhenti mengetik selama waktu tertentu (sesuai yang di set). Pada program saya, waktu tersebut selama 300 ms. Jika pengguna kembali mengetik sebelum 300 ms selesai, timer sebelumnya akan dibatalkan dan timer baru akan dimulai.
-
-Menurut saya, teknik ini penting diterapkan karena dapat mengurangi request AJAX yang tidak diperlukan sehingga penggunaan resource server menjadi lebih efisien dan fitur pencarian dapat berjalan dengan baik.
-
-2. Penggunaan 'await' berfungsi untuk membuat program menunggu sampai proses yang bersifat asynchronous selesai sebelum melanjutkan ke proses berikutnya. Pada kode saya, await digunakan ketika mengambil data menggunakan fetch() dan ketika mengubah response menjadi JSON.
-
-Misalnya:
-const response = await fetch(url);
-const projectData = await response.json();
-
-Saat melakukan fetch(), diperlukan waktu untuk mendapatkan data dari server. Dengan menggunakan await, program akan menunggu sampai response dari server diterima terlebih dahulu. Setelah itu, response tersebut dapat diubah menjadi data JSON dan digunakan untuk menampilkan project.
-
-Jika await tidak digunakan, program tidak langsung mendapatkan hasil dari fetch(), tetapi mendapatkan sebuah Promise. Hal tersebut dapat menyebabkan program lanjut ke kode berikutnya sebelum data dari server selesai diterima. Ini dapat menyebabkan data yang ingin digunakan belum tersedia ketika kode tersebut dijalankan.
-
-Maka, await di sini membantu mengatur urutan proses asynchronous supaya data dari server sudah tersedia sebelum digunakan oleh program.
-
-3. XSS (Cross-Site Scripting) adalah serangan ketika seseorang memasukkan kode atau script berbahaya ke dalam website. Jika kode tersebut tidak ditangani dengan baik, kode tersebut dapat dijalankan oleh browser ketika ditampilkan kepada pengguna.
-
-Misalnya, seseorang memasukkan kode atau script berbahaya melalui form seperti "Tambah Project" atau form lainnya. Jika input tersebut langsung ditampilkan tanpa pengamanan, kode tersebut dapat ikut dijalankan oleh browser.
-
-Sepemahaman saya, XSS perlu diperhatikan ketika menggunakan AJAX/JavaScript karena data yang didapat dari server akan dimasukkan kembali ke halaman menggunakan JavaScript. Jika data tersebut langsung dimasukkan menggunakan innerHTML tanpa dilakukan escaping (mengubah karakter), data yang seharusnya hanya berupa teks bisa dianggap sebagai kode HTML oleh browser.
-
-Sedangkan, jika menggunakan template Django seperti: {{ project.title }}
-Django secara default melakukan autoescaping terhadap data yang ditampilkan. Jadi, karakter tertentu seperti < dan > akan diubah sehingga tidak langsung dianggap sebagai HTML.
+### Tugas 6
+1. 
+2. 
+3. 
+4. 
 
 ## == AI Declaration ==
 
 Note:
-Pada tugas 5 ini saya tidak menggunakan AI untuk memberikan kode secara langsung / jiplak-menjiplak.
+Pada tugas 6 ini saya tidak menggunakan AI untuk memberikan kode secara langsung / jiplak-menjiplak.
 
 Strategi Prompting:
 Saya menggunakan "ChatGPT" sebagai wadah untuk bertanya terkait hal-hal yang saya tidak bisa temukan lebih lanjut melalui W3School dan sumber lainnya.
 Hal tersebut guna mempercepat dan memperjelas pencarian terkait apa yang saya perlukan, serta menghilangkan beberapa error yang terjadi.
 
 Contoh:
-1. Bisakah anda menjelaskan konsep fungsi dari kode program bagian ini?
+Sebagian besar prompting adalah pertanyaan tentang kode pada bagian Tutorial 7.
+1. Bisakah Anda menjelaskan bagian program ini dari awal sampai akhir:
 ```
-async function fetchProjects(searchQuery = "") {
-    if (projectsAbortController) projectsAbortController.abort();
-    projectsAbortController = new AbortController();
+class ProjectSerializer(serializers.ModelSerializer):
+    star_count = serializers.SerializerMethodField()
+    is_starred = serializers.SerializerMethodField()
+    starred_by_names = serializers.SerializerMethodField()
 
-    try {
-        displayPageSection({ showLoading: true });
-        
-        const url = searchQuery
-            ? `${BASE_PROJECTS_ENDPOINT}?title=${encodeURIComponent(searchQuery)}`
-            : BASE_PROJECTS_ENDPOINT;
-        
-        const response = await fetch(url, {
-            headers: { 'Accept': 'application/json' },
-            signal: projectsAbortController.signal,
-        });
+    class Meta:
+        model = Project
+        fields = [
+            "id", "title", "description", "tech_stack",
+            "project_url", "project_image_url",
+            "star_count", "is_starred", "starred_by_names",
+        ]
+        read_only_fields = ["id"]
 
-        if (!response.ok) throw new Error('Failed to fetch data');
+    def validate_title(self, value):
+        value = strip_tags(value).strip()
+        if not value:
+            raise serializers.ValidationError("Title cannot be empty.")
+        return value
 
-        const projectData = await response.json();
+    def validate_description(self, value):
+        return strip_tags(value)
 
-        if (projectData.length === 0) {
-            displayPageSection({ showEmpty: true });
-        } else {
-            gridContainer.innerHTML = '';
-            projectData.forEach(item => {
-                gridContainer.appendChild(buildProjectCardElement(item));
-            });
-            displayPageSection({ showGrid: true });
-        }
-    } catch (error) {
-        if (error.name === 'AbortError') return;
-        console.error('Error loading projects:', error);
-        displayPageSection({ showError: true });
-    }
-}
+    def validate_tech_stack(self, value):
+        return strip_tags(value)
+
+    def get_star_count(self, obj):
+        return obj.starred_by.count()
+
+    def get_is_starred(self, obj):
+        request = self.context.get("request")
+        if request is None or not request.user.is_authenticated:
+            return False
+        return request.user in obj.starred_by.all()
+
+    def get_starred_by_names(self, obj):
+        return ", ".join(user.username for user in obj.starred_by.all())
 ```
 
-Contoh hasil prompt:
+Contoh output:
 ```
-AI menjelaskan bahwa fungsi fetchProjects() digunakan untuk mengambil data project dari endpoint menggunakan fetch(). Parameter searchQuery digunakan untuk melakukan pencarian berdasarkan judul project. AbortController digunakan untuk membatalkan request sebelumnya apabila terdapat request baru, sedangkan response.json() digunakan untuk mengubah response dari server menjadi data JSON yang dapat diproses oleh JavaScript.
+Perhatikan tiga baris ini:
+star_count = serializers.SerializerMethodField()
+is_starred = serializers.SerializerMethodField()
+starred_by_names = serializers.SerializerMethodField()
 
-AI juga menjelaskan bahwa kode tersebut memiliki beberapa kondisi tampilan, yaitu loading ketika request sedang berlangsung, empty ketika tidak terdapat data, grid ketika data berhasil diperoleh, dan error ketika terjadi kegagalan dalam proses request.
+SerializerMethodField adalah field khusus yang nilainya diperoleh dari sebuah method di dalam serializer. Artinya, nilainya tidak harus berasal dari field database.
+
+DRF akan mencari method:
+def get_star_count(self, obj):
+    return obj.starred_by.count()
+
+obj merupakan object model yang sedang diproses oleh serializer.
+Seperti: 
+project = Project.objects.get(id=1)
+
+Ketika serializer memproses project tersebut, obj akan merujuk pada project yang sedang diproses.
+obj.starred_by.count() menghitung jumlah user yang memberikan star pada project tersebut.
+
+Perhatikan baris fields ini:
+fields = [
+    "id", "title", "description", "tech_stack",
+    "project_url", "project_image_url",
+    "star_count", "is_starred", "starred_by_names",
+]
+
+Baris tersebut menentukan field mana saja yang boleh muncul dalam serializer.
+
+read_only_fields = ["id"]
+Baris tersebut menyatakan bahwa id hanya bisa dibaca, tidak bisa diubah melalui input serializer.
 ```
 
 Sebagian besar kode saya terinspirasi dari W3School, Django Documentation, serta web-web yang berkaitan.

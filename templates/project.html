@@ -59,10 +59,16 @@
         {% include "components/project_form_modal.html" %}
     {% endif %}
 
+    {% if perms.main.change_project %}
+        {% include "components/project_update_modal.html" %}
+    {% endif %}
+
     <script>
         const BASE_PROJECTS_ENDPOINT = "{% url 'api:project-list' %}";
         const DETAIL_PROJECT_ENDPOINT = "{% url 'api:project-detail' '00000000-0000-0000-0000-000000000000' %}";
         const STAR_PROJECT_ENDPOINT = "{% url 'api:project-star' '00000000-0000-0000-0000-000000000000' %}";
+        const IS_PERMCHANGEPROJECT = "{{ perms.main.change_project|yesno:'true,false' }}" === "true";
+        const IS_PERMDELETEPROJECT = "{{ perms.main.delete_project|yesno:'true,false' }}" === "true";
         const IS_SUPERUSER = "{{ user.is_superuser|yesno:'true,false' }}" === "true";
         const IS_AUTHENTICATED = "{{ user.is_authenticated|yesno:'true,false' }}" === "true";
 
@@ -103,7 +109,7 @@
 
         function buildProjectCardElement(project) {
             const article = document.createElement('article');
-            article.className = 'experience-card';
+            article.className = `experience-card${project.is_starred ? ' is-starred' : ''}`;
             const image = project.project_image_url
                 ? `<img src="${escapeHtml(project.project_image_url)}" alt="${escapeHtml(project.title)}" class="project-image">` : '';
             const link = project.project_url
@@ -112,16 +118,29 @@
                 ? `<button type="button" class="button button-star${project.is_starred ? ' is-starred' : ''}"
                     data-action="star" data-id="${escapeHtml(project.id)}"
                     title="${escapeHtml(project.starred_by_names)}">
-                    ${project.is_starred ? 'Unstar' : 'Star'} (${project.star_count})</button>`
+                    <span aria-hidden="true">★</span>
+                    Star (${project.star_count})</button>`
                 : `<a href="{% url 'main:login' %}" class="button">Login to star (${project.star_count})</a>`;
-            const remove = IS_SUPERUSER
+            const remove = IS_PERMDELETEPROJECT
                 ? `<button type="button" class="button button-danger" data-action="delete"
                     data-id="${escapeHtml(project.id)}">Delete</button>` : '';
+            const edit = IS_PERMCHANGEPROJECT
+                ? `<button type="button" class="button"
+                    data-action="edit"
+                    data-id="${escapeHtml(project.id)}"
+                    data-title="${escapeHtml(project.title)}"
+                    data-description="${escapeHtml(project.description)}"
+                    data-tech_stack="${escapeHtml(project.tech_stack)}"
+                    data-project_url="${escapeHtml(project.project_url)}"
+                    data-project_image_url="${escapeHtml(project.project_image_url || '')}">
+                    Edit
+                </button>`
+                : '';
             article.innerHTML = `${image}<h2>${escapeHtml(project.title)}</h2>
                 <span class="experience-category">${escapeHtml(project.tech_stack)}</span>
                 <p class="experience-description">${escapeHtml(project.description)}</p>
-                <div class="project-card-actions"><div class="project-actions">
-                ${link}${star}${remove}</div></div>`;
+                <div class="project-card-actions"><div class="skill-change-button">
+                ${link}${star}${remove}${edit}</div></div>`;
             return article;
         }
 
@@ -180,10 +199,10 @@
                 await writeProject(BASE_PROJECTS_ENDPOINT, 'POST', payload);
                 projectForm.reset();
                 document.getElementById('add-project-modal').hidePopover();
-                showToast('Success', 'Project created.', 'success');
+                showToast('Berhasil!', 'Project baru berhasil ditambahkan!', 'success');
                 await fetchProjects(searchInput.value.trim());
             } catch (error) {
-                showToast('Could not create project', error.message, 'error');
+                showToast('Gagal menambahkan project', error.message, 'error');
             } finally {
                 button.disabled = false;
             }
@@ -191,24 +210,77 @@
 
         if (projectForm) projectForm.addEventListener('submit', addProject);
 
+        const updateProjectForm = document.getElementById('update-project-form');
+        const updateProjectModal = document.getElementById('update-project-modal');
+
+        let updateProjectUrl = '';
+
+        async function updateProject(event) {
+            event.preventDefault();
+
+            const button = updateProjectForm.querySelector('button[type="submit"]');
+            button.disabled = true;
+
+            try {
+                const fields = new FormData(updateProjectForm);
+                const payload = Object.fromEntries([
+                    'title', 'description', 'tech_stack', 'project_url', 'project_image_url',
+                ].map(name => [name, fields.get(name)]));
+
+                await writeProject(updateProjectUrl, 'PATCH', payload);
+
+                updateProjectForm.reset();
+                updateProjectModal.hidePopover();
+
+                showToast('Berhasil!', 'Project berhasil diperbarui!', 'success');
+
+                await fetchProjects(searchInput.value.trim());
+
+            } catch (error) {
+                showToast('Gagal memperbarui project', error.message, 'error');
+            } finally {
+                button.disabled = false;
+            }
+        }
+
         gridContainer.addEventListener('click', async function(event) {
             const button = event.target.closest('button[data-action]');
             if (!button || button.disabled) return;
             const action = button.dataset.action;
-            if (action === 'delete' && !window.confirm('Delete this project?')) return;
+            const id = button.dataset.id;
+
+            if (action === 'edit') {
+                updateProjectUrl = projectEndpoint(DETAIL_PROJECT_ENDPOINT, id);
+
+                updateProjectForm.querySelector('[name="title"]').value = button.dataset.title;
+                updateProjectForm.querySelector('[name="description"]').value = button.dataset.description;
+                updateProjectForm.querySelector('[name="tech_stack"]').value = button.dataset.tech_stack;
+                updateProjectForm.querySelector('[name="project_url"]').value = button.dataset.project_url;
+                updateProjectForm.querySelector('[name="project_image_url"]').value = button.dataset.project_image_url || '';
+
+                updateProjectModal.showPopover();
+                return;
+            }
+
+            if (action === 'delete' && !window.confirm('Yakin ingin menghapus project ini?')) return;
             button.disabled = true;
+
             try {
                 const pattern = action === 'star' ? STAR_PROJECT_ENDPOINT : DETAIL_PROJECT_ENDPOINT;
-                await writeProject(projectEndpoint(pattern, button.dataset.id),
+                await writeProject(projectEndpoint(pattern, id),
                     action === 'star' ? 'POST' : 'DELETE');
-                showToast('Success', action === 'star' ? 'Star updated.' : 'Project deleted.', 'success');
+                showToast('Berhasil!', action === 'star' ? 'Star diperbaru.' : 'Project berhasil dihapus.', 'success');
                 await fetchProjects(searchInput.value.trim());
             } catch (error) {
-                showToast('Request failed', error.message, 'error');
+                showToast('Request gagal', error.message, 'error');
             } finally {
                 button.disabled = false;
             }
         });
+
+        if (updateProjectForm) {
+            updateProjectForm.addEventListener('submit', updateProject);
+        }
 
         searchInput.addEventListener('input', function() {
             clearTimeout(searchDebounceTimer);
