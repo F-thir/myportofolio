@@ -121,6 +121,8 @@ Class : PBP F
     - New API Permission System
     - Adjust Skill AJAX with DRF API
     - New API Unit Testing
+- Pertanyaan Reflektif
+- AI Declaration
 
 ## == PERTANYAAN REFLEKTIF - TUGAS 6 ==
 1. Jelaskan apa yang dimaksud dengan REST dan mengapa mengembalikan JSON saja belum cukup untuk menyebut sebuah API sebagai RESTful! Jelaskan pula perbedaan PUT dan PATCH beserta contoh kapan masing-masing sebaiknya digunakan!
@@ -129,10 +131,44 @@ Class : PBP F
 4. Jelaskan mengapa permintaan yang mengubah data tetap memerlukan token CSRF ketika API memakai SessionAuthentication! Mengapa test yang memakai force_authenticate tidak cukup untuk membuktikan bahwa perlindungan CSRF berjalan?
 
 ### Tugas 6
-1. 
-2. 
-3. 
-4. 
+1. Dari yang saya pahami, REST (Representational State Transfer) adalah sebuah gaya arsitektur untuk merancang web API. Lalu, REST menggunakan konsep resource di mana setiap data atau objek dalam sistem direpresentasikan melalui URL dan dapat dimanipulasi menggunakan HTTP methods, seperti GET, POST, PUT, PATCH, dan DELETE.
+
+Mengembalikan JSON saja belum cukup untuk menyebut sebuah API sebagai RESTful karena JSON hanyalah bentuk format data, bukan aturan API. Sebuah API perlu memperhatikan prinsip-prinsip REST (REST Constraints), seperti Client-Server Separation, Stateless, Cacheable, Uniform Interface, serta Layered System.
+
+Client-Server Separation --> Memisahkan tanggung jawab tampilan antarmuka dengan pengelolaan data di server
+Stateless --> Setiap request harus membawa informasi yang diperlukan supaya server dapat memprosesnya tanpa bergantung pada konteks request sebelumnya. 
+Uniform Interface --> Mengatur bagaimana resource diidentifikasi dan dimanipulasi melalui representasi serta penggunaan HTTP methods yang sesuai. 
+Cacheable --> Respons server harus memberikan informasi, apakah data boleh disimpan dalam cache atau tidak supaya mengurangi request berulang.
+Layered System --> Memungkinkan adanya lapisan perantara, seperti proxy atau gateway, di antara client dan server tanpa harus diketahui oleh client.
+
+Sebagai contoh, API yang mengembalikan JSON tetapi menggunakan satu URL untuk seluruh operasi tanpa memanfaatkan HTTP methods yang sesuai dengan fungsinya. Misalnya, menggunakan "/api?action=delete_experience" dengan method POST untuk menghapus data, padahal lebih tepat menggunakan method DELETE.
+
+Perbedaan antara PUT dan PATCH:
+- PUT mengganti seluruh resource, jadi semua field yang wajib harus dikirim. Jika ada yang kurang, request akan ditolak. Pada tests_api.py misalkan, PUT dengan {"title": "Incomplete"} menghasilkan (400). Sedangkan, PUT dengan payload (lengkap) menghasilkan (200). PUT akan lebih cocok ketika ingin mengirim seluruh isi data sekaligus.
+
+- PATCH mengganti beberapa field yang dikirim dan field lain tidak berubah. Pada tests_api.py misalkan, PATCH dengan {"title": "Changed"} cukup mengubah judul saja. Sedangkan, field description dan lainnya tetap. PATCH akan lebih cocok ketika perubahan kecil, misalnya mengganti judul saja.
+
+2. Serializer pada Django REST Framework berperan untuk mengubah data dari model Django yang sudah dibentuk di Models.py menjadi representasi yang dapat dikirimkan melalui API, misalkan dengan JSON. Serializer juga dapat mengubah data yang diterima dari client menjadi data Python yang dapat divalidasi dan disimpan ke dalam database.
+
+Dibandingkan merakit dictionary secara manual menggunakan JsonResponse seperti pada Tutorial 05, serializer memberikan beberapa keuntungan. Pertama, serializer dapat melakukan validasi terhadap data yang dikirimkan client sebelum disimpan ke database, misalnya "validate_title" membersihkan tag HTML dengan "strip_tags". Kedua, serializer mempermudah proses konversi antara model Django dan JSON. Ketiga, kita dapat menentukan field apa saja yang boleh ditampilkan atau diubah melalui API, jadi struktur data menjadi lebih konsisten dan mudah dikelola, misalnya "star_count".
+
+Misalkan, pada implementasi API Project, ProjectSerializer dapat mengubah objek Project dari Models menjadi JSON sekaligus memvalidasi data seperti title, description, dan tech_stack ketika client mengirimkan request.
+
+3. Autentikasi memastikan identitas pengguna yang sedang mengakses (Siapa yang mengakses?). Sedangkan, otorisasi menentukan tindakan apa saja yang boleh dilakukan oleh pengguna tersebut (Apa yang diperbolehkan?).
+
+Pada Django REST Framework, autentikasi dilakukan menggunakan SessionAuthentication yang membaca session login Django untuk mengenali pengguna. Setelah identitas pengguna diketahui, dilakukan ototorisasi, di mana permission class (IsPortfolioOwnerOrEditorOrReadOnly) digunakan untuk memeriksa apakah pengguna tersebut memiliki akses untuk melakukan tindakan tertentu.
+
+Misalkan, pada tugas ini, Superuser memiliki permission untuk menambah, mengubah, dan menghapus data. Sedangkan, Editor hanya mengubah data. Lalu, Pengguna biasa hanya dapat melihat data.
+
+Pemeriksaan hak akses harus dilakukan melalui permission class di server karena tampilan tidak memastikan keamanan. Menyembunyikan tombol Add, Edit, atau Delete di template hanya memengaruhi tampilan yang dilihat pengguna. Masalahnya, pengguna dapat mengirimkan request secara langsung melalui browser atau tools lainnya. Makanya, server harus tetap memvalidasi setiap request menggunakan permission class supaya pengguna tidak dapat melakukan tindakan di luar hak aksesnya. Misalkan, Editor yang mengirim POST atau DELETE langsung ke API akan ditolak (403).
+
+4. Jadi, ketika API menggunakan SessionAuthentication, identitas pengguna dikenali melalui session yang tersimpan di cookie browser. Cookie tersebut dapat dikirimkan secara otomatis oleh browser ketika pengguna mengakses suatu website. Hal ini dapat memberikan risiko serangan CSRF (Cross-Site Request Forgery), yaitu serangan yang memanfaatkan session pengguna untuk mengirimkan request.
+
+Makanya, request yang mengubah data, seperti POST, PUT, PATCH, dan DELETE, memerlukan token CSRF. Token ini digunakan untuk memastikan bahwa request yang dikirim itu benar-benar dari sumber yang memiliki token yang valid supaya mengurangi risiko request palsu dari website lain. 
+
+Test yang menggunakan force_authenticate() tidak cukup untuk membuktikan bahwa perlindungan CSRF berjalan karena metode tersebut secara langsung menetapkan pengguna sudah login tanpa menjalankan proses autentikasi (SessionAuthentication). Dari situ, pemeriksaan CSRF dari SessionAuthentication tidak dijalankan.
+
+Dalam menguji perlindungan CSRF, kita perlu menggunakan test client dengan pemeriksaan CSRF yang diaktifkan, misalkan "client = APIClient(enforce_csrf_checks=True)". Dengan itu, POST tanpa token akan ditolak (403). Sedangkan, POST dengan token yang valid berhasil (201).
 
 ## == AI Declaration ==
 
