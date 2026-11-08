@@ -101,6 +101,7 @@
         const searchForm = document.getElementById('experience-search-form');
         const searchInput = document.getElementById('search-input');
         const categoryFilter = document.getElementById('category-filter');
+        const SEARCH_DEBOUNCE_DELAY = 300;
         let experienceAbortController;
         let searchDebounceTimer;
 
@@ -294,7 +295,7 @@
 
                 experienceForm.reset();
                 closeExperienceModal();
-                
+
                 showToast('Berhasil!', 'Experience baru berhasil ditambahkan!', 'success');
 
                 await fetchExperiences(searchInput.value.trim(), categoryFilter.value);

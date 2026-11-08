@@ -108,17 +108,19 @@ Class : PBP F
     - New Experience Serializer
     - New API Permission System
     - Adjust Experience AJAX with DRF API
+    - New API Unit Testing
 - Adjusting 'Projects' to match consistency:
     - New Update Data with Modal
     - New "Edit" button
     - Adjust text, design, and script on HTML
+    - Adjust API Unit Testing
 - Adjusting 'Skill' to match 'Tugas 6' requirements and consistency:
     - Implemented Django REST Framework (DRF)
     - New Update Data with Modal
     - New Skill Serializer
     - New API Permission System
     - Adjust Skill AJAX with DRF API
-
+    - New API Unit Testing
 
 ## == PERTANYAAN REFLEKTIF - TUGAS 6 ==
 1. Jelaskan apa yang dimaksud dengan REST dan mengapa mengembalikan JSON saja belum cukup untuk menyebut sebuah API sebagai RESTful! Jelaskan pula perbedaan PUT dan PATCH beserta contoh kapan masing-masing sebaiknya digunakan!
