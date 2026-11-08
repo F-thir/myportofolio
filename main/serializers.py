@@ -8,12 +8,13 @@ class ExperienceSerializer(serializers.ModelSerializer):
     star_count = serializers.SerializerMethodField()
     is_starred = serializers.SerializerMethodField()
     starred_by_names = serializers.SerializerMethodField()
+    is_ongoing = serializers.SerializerMethodField()
 
     class Meta:
         model = Experience
         fields = [
             "id", "title", "description", "thumbnail", "category",
-            "started_at", "ended_at",
+            "started_at", "ended_at", "is_ongoing",
             "star_count", "is_starred", "starred_by_names",
         ]
         read_only_fields = ["id", "started_at"]
@@ -38,6 +39,9 @@ class ExperienceSerializer(serializers.ModelSerializer):
 
     def get_starred_by_names(self, obj):
         return ", ".join(user.username for user in obj.starred_by.all())
+
+    def get_is_ongoing(self, obj):
+       return obj.ended_at is None
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:
