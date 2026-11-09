@@ -182,6 +182,14 @@
                 </button>`
                 : '';
 
+            const finish = IS_PERMCHANGEEXPERIENCE && experience.is_ongoing
+                ? `<button type="button" class="button"
+                    data-action="finish"
+                    data-id="${escapeHtml(experience.id)}">
+                    Finish
+                </button>`
+                : '';
+
             const status = experience.is_ongoing
                 ? '<p class="experience-status">Sedang berlangsung</p>'
                 : '<p class="experience-status">Selesai</p>';
@@ -196,6 +204,7 @@
                     ${star}
                     ${remove}
                     ${edit}
+                    ${finish}
                 </div>
             `;
 
@@ -396,6 +405,24 @@
                 deleteExperienceUrl = experienceEndpoint(DETAIL_EXPERIENCE_ENDPOINT, id);
                 deleteExperienceName.textContent = button.dataset.title;
                 deleteExperienceModal.showPopover();
+                return;
+            }
+
+            if (action === 'finish') {
+                if (!window.confirm('Tandai experience ini sebagai selesai?')) {
+                    return;
+                }
+                button.disabled = true;
+
+                try {
+                    await writeExperience(experienceEndpoint(DETAIL_EXPERIENCE_ENDPOINT, id),'PATCH',{ ended_at: new Date().toISOString() });
+                    showToast('Berhasil!', 'Experience ditandai selesai.', 'success');
+                    await fetchExperiences(searchInput.value.trim(), categoryFilter.value);
+                } catch (error) {
+                    showToast('Request gagal', error.message, 'error');
+                } finally {
+                    button.disabled = false;
+                }
                 return;
             }
 

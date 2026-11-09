@@ -2,6 +2,7 @@ import uuid
 
 from django.contrib.auth.models import Group, User
 from django.urls import reverse
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.test import APIClient, APITestCase
 
@@ -129,6 +130,25 @@ class ExperienceAPITest(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.experience.refresh_from_db()
         self.assertEqual(self.experience.title, "Changed")
+
+    def test_owner_can_mark_experience_as_finished(self):
+        self.assertTrue(self.experience.is_ongoing)
+        self.client.force_authenticate(user=self.owner)
+
+        response = self.client.patch(self.detail_url, {"ended_at": timezone.now().isoformat()}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertFalse(response.data["is_ongoing"])
+        self.experience.refresh_from_db()
+        self.assertIsNotNone(self.experience.ended_at)
+
+    def test_editor_can_mark_experience_as_finished(self):
+        self.visitor.groups.add(Group.objects.create(name="Editor"))
+        self.client.force_authenticate(user=self.visitor)
+        
+        response = self.client.patch(self.detail_url, {"ended_at": timezone.now().isoformat()}, format="json")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.experience.refresh_from_db()
+        self.assertIsNotNone(self.experience.ended_at)
 
     def test_wrong_method(self):
         self.client.force_authenticate(user=self.owner)

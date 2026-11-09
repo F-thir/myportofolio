@@ -110,6 +110,7 @@ Class : PBP F
     - New API Permission System
     - Adjust Experience AJAX with DRF API
     - New API Unit Testing
+    - New "Finish" button to Mark Experience as Finished.
 - Adjusting 'Projects' to match consistency:
     - New Update Data with Modal
     - New Delete Data with Modal
