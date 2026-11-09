@@ -75,6 +75,10 @@
         {% include "components/skill_update_modal.html" %}
     {% endif %}
 
+    {% if perms.main.delete_skill %}
+        {% include "components/skill_delete_modal.html" %}
+    {% endif %}
+
     <script>
         // Konfigurasi
         const BASE_SKILL_ENDPOINT = "{% url 'api:skill-list' %}";
@@ -152,7 +156,8 @@
             const remove = IS_PERMDELETESKILL
                 ? `<button type="button" class="button button-danger"
                     data-action="delete"
-                    data-id="${escapeHtml(skill.id)}">
+                    data-id="${escapeHtml(skill.id)}"
+                    data-title="${escapeHtml(skill.title)}">
                     Delete
                 </button>`
                 : '';
@@ -344,6 +349,30 @@
             }
         }
 
+        const deleteSkillModal = document.getElementById('delete-skill-modal');
+        const deleteSkillName = document.getElementById('delete-skill-name');
+        const deleteButton = document.getElementById('confirm-delete-skill');
+        let deleteSkillUrl = '';
+
+        async function deleteSkill() {
+            deleteButton.disabled = true;
+            try {
+                await writeSkill(deleteSkillUrl, 'DELETE');
+                deleteSkillModal.hidePopover();
+                showToast('Berhasil!', 'Skill berhasil dihapus.', 'success');
+                await fetchSkills(searchInput.value.trim(), categoryFilter.value);
+            } catch (error) {
+                deleteSkillModal.hidePopover();
+                showToast('Gagal menghapus skill', error.message, 'error');
+            } finally {
+                deleteButton.disabled = false;
+            }
+        }
+
+        if (deleteButton) {
+            deleteButton.addEventListener('click', deleteSkill);
+        }
+
         gridContainer.addEventListener('click', async function(event) {
             const button = event.target.closest('button[data-action]');
             if (!button || button.disabled) return;
@@ -364,9 +393,13 @@
                 return;
             }
 
-            if (action === 'delete' && !window.confirm('Yakin ingin menghapus skill ini?')) {
+            if (action === 'delete') {
+                deleteSkillUrl =skillEndpoint(DETAIL_SKILL_ENDPOINT, id);
+                deleteSkillName.textContent = button.dataset.title;
+                deleteSkillModal.showPopover();
                 return;
             }
+
             button.disabled = true;
 
             try {

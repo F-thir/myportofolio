@@ -63,6 +63,10 @@
         {% include "components/project_update_modal.html" %}
     {% endif %}
 
+    {% if perms.main.delete_project %}
+        {% include "components/project_delete_modal.html" %}
+    {% endif %}
+
     <script>
         const BASE_PROJECTS_ENDPOINT = "{% url 'api:project-list' %}";
         const DETAIL_PROJECT_ENDPOINT = "{% url 'api:project-detail' '00000000-0000-0000-0000-000000000000' %}";
@@ -123,7 +127,7 @@
                 : `<a href="{% url 'main:login' %}" class="button">Login to star (${project.star_count})</a>`;
             const remove = IS_PERMDELETEPROJECT
                 ? `<button type="button" class="button button-danger" data-action="delete"
-                    data-id="${escapeHtml(project.id)}">Delete</button>` : '';
+                    data-id="${escapeHtml(project.id)}" data-title="${escapeHtml(project.title)}">Delete</button>` : '';
             const edit = IS_PERMCHANGEPROJECT
                 ? `<button type="button" class="button"
                     data-action="edit"
@@ -243,6 +247,30 @@
             }
         }
 
+        const deleteProjectModal = document.getElementById('delete-project-modal');
+        const deleteProjectName = document.getElementById('delete-project-name');
+        const deleteButton = document.getElementById('confirm-delete-project');
+        let deleteProjectUrl = '';
+
+        async function deleteProject() {
+            deleteButton.disabled = true;
+            try {
+                await writeProject(deleteProjectUrl, 'DELETE');
+                deleteProjectModal.hidePopover();
+                showToast('Berhasil!', 'Project berhasil dihapus.', 'success');
+                await fetchProjects(searchInput.value.trim());
+            } catch (error) {
+                deleteProjectModal.hidePopover();
+                showToast('Gagal menghapus project', error.message, 'error');
+            } finally {
+                deleteButton.disabled = false;
+            }
+        }
+
+        if (deleteButton) {
+            deleteButton.addEventListener('click', deleteProject);
+        }
+
         gridContainer.addEventListener('click', async function(event) {
             const button = event.target.closest('button[data-action]');
             if (!button || button.disabled) return;
@@ -262,8 +290,12 @@
                 return;
             }
 
-            if (action === 'delete' && !window.confirm('Yakin ingin menghapus project ini?')) return;
-            button.disabled = true;
+            if (action === 'delete') {
+                deleteProjectUrl = projectEndpoint(DETAIL_PROJECT_ENDPOINT, id);
+                deleteProjectName.textContent = button.dataset.title;
+                deleteProjectModal.showPopover();
+                return;
+            }
 
             try {
                 const pattern = action === 'star' ? STAR_PROJECT_ENDPOINT : DETAIL_PROJECT_ENDPOINT;

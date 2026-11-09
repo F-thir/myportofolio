@@ -105,18 +105,21 @@ Class : PBP F
 > Tugas 6 (Updated)
 - Adjusting 'Experience' to match 'Tugas 6' requirements:
     - Implemented Django REST Framework (DRF)
+    - New Delete Data with Modal
     - New Experience Serializer
     - New API Permission System
     - Adjust Experience AJAX with DRF API
     - New API Unit Testing
 - Adjusting 'Projects' to match consistency:
     - New Update Data with Modal
+    - New Delete Data with Modal
     - New "Edit" button
     - Adjust text, design, and script on HTML
     - Adjust API Unit Testing
 - Adjusting 'Skill' to match 'Tugas 6' requirements and consistency:
     - Implemented Django REST Framework (DRF)
     - New Update Data with Modal
+    - New Delete Data with Modal
     - New Skill Serializer
     - New API Permission System
     - Adjust Skill AJAX with DRF API

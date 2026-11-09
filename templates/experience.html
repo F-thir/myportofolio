@@ -83,6 +83,10 @@
         {% include "components/experience_update_modal.html" %}
     {% endif %}
 
+    {% if perms.main.delete_experience %}
+        {% include "components/experience_delete_modal.html" %}
+    {% endif %}
+
     <script>
         // Konfigurasi
         const BASE_EXPERIENCE_ENDPOINT = "{% url 'api:experience-list' %}";
@@ -172,7 +176,8 @@
             const remove = IS_PERMDELETEEXPERIENCE
                 ? `<button type="button" class="button button-danger"
                     data-action="delete"
-                    data-id="${escapeHtml(experience.id)}">
+                    data-id="${escapeHtml(experience.id)}"
+                    data-title="${escapeHtml(experience.title)}">
                     Delete
                 </button>`
                 : '';
@@ -344,6 +349,30 @@
             }
         }
 
+        const deleteExperienceModal = document.getElementById('delete-experience-modal');
+        const deleteExperienceName = document.getElementById('delete-experience-name');
+        const deleteButton = document.getElementById('confirm-delete-experience');
+        let deleteExperienceUrl = '';
+
+        async function deleteExperience() {
+            deleteButton.disabled = true;
+            try {
+                await writeExperience(deleteExperienceUrl, 'DELETE');
+                deleteExperienceModal.hidePopover();
+                showToast('Berhasil!', 'Experience berhasil dihapus.', 'success');
+                await fetchExperiences(searchInput.value.trim(), categoryFilter.value);
+            } catch (error) {
+                deleteExperienceModal.hidePopover();
+                showToast('Gagal menghapus experience', error.message, 'error');
+            } finally {
+                deleteButton.disabled = false;
+            }
+        }
+
+        if (deleteButton) {
+            deleteButton.addEventListener('click', deleteExperience);
+        }
+
         gridContainer.addEventListener('click', async function(event) {
             const button = event.target.closest('button[data-action]');
             if (!button || button.disabled) return;
@@ -363,9 +392,13 @@
                 return;
             }
 
-            if (action === 'delete' && !window.confirm('Yakin ingin menghapus experience ini?')) {
+            if (action === 'delete') {
+                deleteExperienceUrl = experienceEndpoint(DETAIL_EXPERIENCE_ENDPOINT, id);
+                deleteExperienceName.textContent = button.dataset.title;
+                deleteExperienceModal.showPopover();
                 return;
             }
+
             button.disabled = true;
 
             try {
