@@ -128,6 +128,9 @@ Class : PBP F
 - Pertanyaan Reflektif
 - AI Declaration
 
+> Tutorial 10
+- Finished Tutorial 10
+
 ## == PERTANYAAN REFLEKTIF - TUGAS 6 ==
 1. Jelaskan apa yang dimaksud dengan REST dan mengapa mengembalikan JSON saja belum cukup untuk menyebut sebuah API sebagai RESTful! Jelaskan pula perbedaan PUT dan PATCH beserta contoh kapan masing-masing sebaiknya digunakan!
 2. Jelaskan peran serializer pada Django REST Framework! Apa keuntungannya dibandingkan merakit dictionary secara manual dengan JsonResponse seperti pada Tutorial 05?
